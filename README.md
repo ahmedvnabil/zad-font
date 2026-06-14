@@ -11,7 +11,7 @@
   <img alt="QA: FontBakery" src="https://img.shields.io/badge/QA-FontBakery%20%E2%9C%93-2da44e?style=flat-square">
 </p>
 
-**Live landing page →** https://ahmedvnabil.github.io/zad-font/
+**Live landing page →** https://zadfont.zad.tools/
 
 ---
 
