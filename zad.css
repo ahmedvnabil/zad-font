@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Zad — Arabic web font
+   Derived from IBM Plex Sans Arabic (SIL OFL 1.1). See OFL.txt.
+   Drop this file + the /fonts folder into any site and use font-family:'Zad'.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Zad";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("fonts/Zad-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Zad";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/Zad-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Zad";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/Zad-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Zad";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/Zad-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Zad";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/Zad-Bold.woff2") format("woff2");
+}
+
+/* --------------------------------------------------------------------------
+   Convenience tokens. The fallback stack covers the brief moment before the
+   webfont loads and any glyph Zad doesn't have.
+   -------------------------------------------------------------------------- */
+:root {
+  --font-zad: "Zad", "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
+    Arial, "Noto Sans Arabic", sans-serif;
+}
+
+.font-zad {
+  font-family: var(--font-zad);
+}

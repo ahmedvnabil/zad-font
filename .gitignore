@@ -1,0 +1,19 @@
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Build artefacts that are *not* the shipped font kit
+*.log
+*.tmp

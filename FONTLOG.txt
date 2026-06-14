@@ -1,0 +1,26 @@
+FONTLOG for Zad
+================
+
+Zad is the Gulf Type Foundry's UI workhorse — a sans-serif designed for
+dense, operational interfaces in both Arabic and Latin. It anchors the
+foundry's own studio and website.
+
+ChangeLog
+---------
+
+1. 2026-06-12 — Direction-C identity pass
+   Zad becomes the foundry's default UI face. Tightened metrics for dense
+   tables, refined Arabic letterforms, locked the weight ladder
+   (Regular 400, Medium 500, Bold 700).
+
+2. 2026-06-04 — Initial release of Zad
+   First public version. Arabic + Latin coverage. Released under SIL
+   Open Font License 1.1.
+
+Acknowledgements
+----------------
+
+Designed by the Gulf Type Foundry.
+
+Released under the SIL Open Font License 1.1 — see OFL.txt or
+https://openfontlicense.org for the full text.

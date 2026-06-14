@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "candidate": {
+    "path": "families/zad/fonts/Zad-Regular.ttf",
+    "family": "Zad",
+    "subfamily": "Regular",
+    "psname": "Zad-Regular",
+    "glyph_count": 1657
+  },
+  "upstream": null,
+  "design_originality_pct": 100.0,
+  "branding_originality_pct": 100.0,
+  "verdict": "original",
+  "verdict_text_en": "Original design — substantially new work; minimal or no inheritance.",
+  "verdict_text_ar": "تصميمٌ أصليٌّ — عملٌ جديدٌ إلى حدٍّ كبير، احتفاظ بسيط أو منعدم.",
+  "dimensions": {}
+}
