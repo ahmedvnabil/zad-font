@@ -3,137 +3,158 @@
 <head>
 <meta charset="utf-8">
 <title>Zad — خط عربي مفتوح المصدر للويب · A free Arabic web font</title>
-<meta name="description" content="Zad — a clean, open-source Arabic web font. 5 weights, woff2, OFL 1.1. Drop-in for any site. خط زاد العربي للويب — 5 أوزان، مفتوح المصدر تحت رخصة SIL OFL.">
+<meta name="description" content="Zad — a clean, open-source Arabic web font. 5 weights, woff2, OFL 1.1. خط زاد العربي للويب — 5 أوزان، مفتوح المصدر تحت رخصة SIL OFL.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e2972b">
 <meta property="og:title" content="Zad — Open-source Arabic web font">
-<meta property="og:description" content="Clean Arabic web font for dense, operational interfaces. 5 weights, woff2, OFL 1.1.">
+<meta property="og:description" content="A clean Arabic web font, set in itself. 5 weights, woff2, OFL 1.1.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zadfont.zad.tools/">
 <link rel="canonical" href="https://zadfont.zad.tools/">
 
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/Zad-Bold.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/Zad-Regular.woff2">
 <link rel="stylesheet" href="zad.css">
 
 <!-- Tailwind + Alpine, CDN. Landing page only — the font itself ships zero deps. -->
-<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <style>
+  [x-cloak]{ display:none !important; }
+  /* ===== Saffron Drench system — the whole page is set in Zad ===== */
   :root{
-    --ink:#0a0a0a; --paper:#ffffff; --mute:#737373; --rule:#0a0a0a; --soft:#e7e5e4;
-    --accent:#ff3b00;
+    --font-zad:"Zad","Segoe UI",system-ui,-apple-system,"Noto Sans Arabic",sans-serif;
+    --bg:#e2972b; --bg-raised:#e8a23b;
+    --ink:#1c1404; --ink-soft:#6e521a; --line:rgba(28,20,4,.20); --line-strong:rgba(28,20,4,.42);
+    --display:#1c1404;
+    --panel:#1b1405; --panel-raised:#231a08; --on-panel:#f6efdf; --on-panel-soft:#c3b48f; --panel-line:rgba(246,239,223,.16);
+    --paper:#f7f0e1; --paper-ink:#241a08; --paper-soft:#6e5a32; --paper-line:rgba(36,26,8,.14);
+    --accent:#8f2d07;
+    --btn-bg:#1c1404; --btn-fg:#f3ad4e; --btn-bg-hover:#33260c;
   }
   html.dark{
-    --ink:#fafaf9; --paper:#0a0a0a; --mute:#a3a3a3; --rule:#fafaf9; --soft:#171717;
-    --accent:#ff7a3d;
+    --bg:#15100a; --bg-raised:#1c160c;
+    --ink:#f4ebd7; --ink-soft:#b09b76; --line:rgba(244,235,215,.14); --line-strong:rgba(244,235,215,.30);
+    --display:#f0a94b;
+    --panel:#1f180c; --panel-raised:#271f10; --on-panel:#f4ebd7; --on-panel-soft:#b09b76; --panel-line:rgba(244,235,215,.12);
+    --paper:#1f180c; --paper-ink:#f4ebd7; --paper-soft:#b09b76; --paper-line:rgba(244,235,215,.12);
+    --accent:#f0a94b;
+    --btn-bg:#f0a94b; --btn-fg:#1c1404; --btn-bg-hover:#f4b863;
   }
-  html, body{ background:var(--paper); color:var(--ink); }
-  body{ font-family: var(--font-zad); font-feature-settings:"kern","liga","calt"; -webkit-font-smoothing:antialiased; }
-  .mono{ font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; font-feature-settings:"tnum"; }
-  .rule{ border-color: var(--rule); }
-  .soft{ background: var(--soft); }
-  .ink{ color: var(--ink); }
-  .mute{ color: var(--mute); }
-  .paper{ background: var(--paper); }
-  .accent{ color: var(--accent); }
-  .bg-accent{ background: var(--accent); color: var(--paper); }
 
-  /* Display word in hero — tracks tightly */
-  .display{ letter-spacing:-0.04em; line-height:0.85; font-weight:700; }
-  .display-latin{ letter-spacing:-0.06em; }
-
-  /* Dense info rows */
-  .grid-rows-info > div{ border-top: 1px solid var(--rule); }
-  .grid-rows-info > div:first-child{ border-top: 0; }
-
-  /* Marquee-style weight ladder rows */
-  .ladder-row{ border-top:1px solid var(--rule); }
-  .ladder-row:last-child{ border-bottom:1px solid var(--rule); }
-
-  /* Inputs (type tester) */
-  input[type=range]{ accent-color: var(--accent); }
-  textarea.tester{
-    background: transparent; color: var(--ink); border:0; outline:0; width:100%;
-    resize: vertical; min-height: 320px;
+  html,body{ background:var(--bg); }
+  body{
+    color:var(--ink); font-family:var(--font-zad);
+    font-feature-settings:"kern","liga","calt"; -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  textarea.tester::placeholder{ color: var(--mute); }
 
-  /* Character grid */
-  .glyph-cell{
-    aspect-ratio: 1/1; display:grid; place-items:center;
-    border:1px solid var(--rule); font-size: clamp(20px, 2.2vw, 32px);
-    transition: background .1s ease;
-  }
-  .glyph-cell:hover{ background: var(--ink); color: var(--paper); }
+  /* Labels — Zad, never a system mono. Tracking ONLY on Latin (RTL keeps Arabic joined). */
+  .tag{ font-weight:500; font-size:12px; text-transform:uppercase; font-feature-settings:"tnum" 1; }
+  html[dir=ltr] .tag{ letter-spacing:.13em; }
+  html[dir=rtl] .tag{ letter-spacing:normal; text-transform:none; }
+  .num{ font-feature-settings:"tnum" 1; font-variant-numeric:tabular-nums; }
 
-  /* Code blocks */
-  pre.code{
-    background: var(--ink); color: var(--paper); padding: 1rem 1.25rem;
-    overflow-x:auto; border:1px solid var(--rule);
-  }
-  pre.code .com{ color: #9ca3af; }
-  pre.code .kw{ color:#ff7a3d; }
-  pre.code .str{ color:#86efac; }
+  /* Arabic must never carry letter-spacing (it severs the joins). Latin display may track tight. */
+  .disp{ line-height:.86; font-weight:700; color:var(--display); }
+  .disp-ar{ letter-spacing:normal; }
+  .disp-en{ letter-spacing:-.045em; }
 
-  /* Hide marker dots etc */
-  .no-dot::marker{ content:""; }
+  .hair{ border-color:var(--line); }
+  .hair-strong{ border-color:var(--line-strong); }
+  .ink{ color:var(--ink); } .ink-soft{ color:var(--ink-soft); }
+  .panel{ background:var(--panel); color:var(--on-panel); }
+  .panel .soft{ color:var(--on-panel-soft); }
+  .paper{ background:var(--paper); color:var(--paper-ink); }
+  .paper .soft{ color:var(--paper-soft); }
+  .accent{ color:var(--accent); }
 
-  /* Print: clean, no chrome */
+  .btn{ display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1.15rem; font-weight:500;
+         transition:transform .25s cubic-bezier(.2,.8,.2,1), background-color .2s, color .2s; }
+  .btn:active{ transform:translateY(1px); }
+  .btn-primary{ background:var(--btn-bg); color:var(--btn-fg); }
+  .btn-primary:hover{ background:var(--btn-bg-hover); }
+  .btn-ghost{ border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover{ background:color-mix(in oklab, var(--ink) 9%, transparent); }
+  .link{ color:var(--accent); text-underline-offset:3px; }
+  .link:hover{ text-decoration:underline; }
+
+  /* Code blocks — set in Zad (tabular figures), on a deep ink panel for legibility.
+     Always LTR + left-aligned even inside the RTL page, so code reads correctly. */
+  pre.code{ background:var(--panel); color:var(--on-panel); padding:1rem 1.15rem; overflow-x:auto;
+            border-radius:2px; font-feature-settings:"tnum" 1,"calt" 1; font-size:13.5px; line-height:1.6;
+            direction:ltr; text-align:left; unicode-bidi:isolate; }
+  pre.code .com{ color:var(--on-panel-soft); }
+  pre.code .kw{ color:#f0a94b; }
+  pre.code .str{ color:#e8c98a; }
+
+  input[type=range]{ accent-color:var(--accent); }
+  html.dark input[type=range]{ accent-color:#f0a94b; }
+  select{ color:var(--ink); }
+  textarea.tester{ background:transparent; color:var(--on-panel); border:0; outline:0; width:100%; resize:vertical; }
+  textarea.tester::placeholder{ color:var(--on-panel-soft); }
+
+  /* Character grid — invert on hover for a tactile, specimen-y feel */
+  .glyph{ aspect-ratio:1/1; display:grid; place-items:center; border:1px solid var(--line);
+          font-size:clamp(20px,2.3vw,34px); transition:background-color .12s, color .12s; }
+  .glyph:hover{ background:var(--ink); color:var(--bg); }
+
+  /* Weight-ladder rows */
+  .ladder{ border-top:1px solid var(--line); transition:background-color .15s; }
+  .ladder:hover{ background:color-mix(in oklab, var(--ink) 7%, transparent); }
+  .ladder:last-child{ border-bottom:1px solid var(--line); }
+
+  /* Section reveal on load / scroll — transform+opacity only */
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none;} }
+  .rise{ animation:rise .7s cubic-bezier(.2,.8,.2,1) both; }
+  .rise-2{ animation-delay:.08s; } .rise-3{ animation-delay:.16s; } .rise-4{ animation-delay:.24s; }
+  @media (prefers-reduced-motion:reduce){ .rise,.rise-2,.rise-3,.rise-4{ animation:none; } }
+
+  ::selection{ background:var(--ink); color:var(--bg); }
+  ::-webkit-scrollbar{ width:11px; height:11px; }
+  ::-webkit-scrollbar-thumb{ background:var(--line-strong); }
+  ::-webkit-scrollbar-track{ background:transparent; }
+
+  html[dir=ltr] .start{ text-align:left; } html[dir=rtl] .start{ text-align:right; }
+
+  /* Print: drop to paper, hide chrome */
   @media print{
+    :root{ --bg:#fff; --ink:#000; --display:#000; --line:rgba(0,0,0,.3); }
     .no-print{ display:none !important; }
-    body{ background:white; color:black; }
-    pre.code{ background:white; color:black; border:1px solid #000; }
-    .glyph-cell:hover{ background:transparent; color:black; }
-    main > section{ break-inside: avoid; }
-    @page{ margin: 1.2cm; }
-  }
-
-  /* Slim scrollbar feel */
-  ::-webkit-scrollbar{ width:10px; height:10px; }
-  ::-webkit-scrollbar-thumb{ background: var(--rule); }
-
-  /* LTR alignment helper when language flips */
-  html[dir=ltr] .swap{ text-align:left; }
-  html[dir=rtl] .swap{ text-align:right; }
-
-  /* Faint grid background for hero numbers */
-  .num-stamp{
-    font-variant-numeric: tabular-nums; font-feature-settings:"tnum";
+    body{ background:#fff; color:#000; }
+    pre.code{ background:#fff; color:#000; border:1px solid #000; }
+    .panel,.paper{ background:#fff !important; color:#000 !important; }
+    .glyph:hover{ background:transparent; color:#000; }
+    section{ break-inside:avoid; }
+    @page{ margin:1.2cm; }
   }
 </style>
 
 <script>
   function zad(){
     return {
-      lang: 'ar',
-      get dir(){ return this.lang === 'ar' ? 'rtl' : 'ltr' },
-      theme: 'light',
-      toggleLang(){ this.lang = this.lang === 'ar' ? 'en' : 'ar' },
+      lang:'ar',
+      get dir(){ return this.lang==='ar' ? 'rtl' : 'ltr' },
+      theme:'light',
+      toggleLang(){ this.lang = this.lang==='ar' ? 'en' : 'ar' },
       toggleTheme(){
-        this.theme = this.theme === 'light' ? 'dark' : 'light';
-        document.documentElement.classList.toggle('dark', this.theme === 'dark');
+        this.theme = this.theme==='light' ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', this.theme==='dark');
+        const m=document.querySelector('meta[name=theme-color]'); if(m) m.content = this.theme==='dark' ? '#15100a' : '#e2972b';
       },
-      // Type tester
-      tester: {
-        weight: 500,
-        size: 72,
-        align: 'right',
-        text: 'الخطّ زادٌ للمسافر، ولغةُ العملِ للناس.\nZad — a clean Arabic web font for dense interfaces.',
-      },
-      // OpenType feature toggles
-      feat: { kern: true, liga: true, calt: true, tnum: false, mark: true },
-      get featCss(){
-        return Object.entries(this.feat)
-          .map(([k,v]) => `"${k}" ${v?1:0}`).join(', ');
-      },
-      copy(text, e){
+      tester:{ weight:500, size:80, align:'right',
+        text:'الخطُّ زادٌ للمسافرِ، ولغةُ العملِ للناس.\nZad — a clean Arabic web font for dense interfaces.' },
+      feat:{ kern:true, liga:true, calt:true, tnum:false, mark:true },
+      get featCss(){ return Object.entries(this.feat).map(([k,v])=>`"${k}" ${v?1:0}`).join(', ') },
+      copy(text,e){
         navigator.clipboard?.writeText(text);
-        const btn = e?.currentTarget; if(!btn) return;
-        const old = btn.dataset.label || btn.textContent;
-        btn.dataset.label = old;
-        btn.textContent = this.lang === 'ar' ? '↳ تم النسخ' : '↳ copied';
-        setTimeout(()=>{ btn.textContent = old; }, 1100);
+        const b=e?.currentTarget; if(!b) return;
+        const old=b.dataset.label||b.textContent; b.dataset.label=old;
+        b.textContent = this.lang==='ar' ? '✓ اتنسخ' : '✓ copied';
+        setTimeout(()=>{ b.textContent=old; },1100);
       },
-      t(ar, en){ return this.lang === 'ar' ? ar : en },
+      t(ar,en){ return this.lang==='ar' ? ar : en },
     }
   }
 </script>
@@ -141,517 +162,404 @@
 <body class="min-h-screen">
 
 <!-- ============ TOP BAR ============ -->
-<header class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-3 flex items-center gap-4 mono text-[11px] uppercase tracking-[0.12em]">
-    <a href="#top" class="font-bold">ZAD<span class="accent">.</span></a>
-    <span class="mute hidden md:inline">/ <span x-text="t('خط عربي مفتوح المصدر','Open-source Arabic webfont')"></span></span>
-    <nav class="hidden lg:flex items-center gap-3 mute">
-      <a class="hover:ink" href="#tester" x-text="t('جرّب','TRY')"></a>·
-      <a class="hover:ink" href="#install" x-text="t('تركيب','INSTALL')"></a>·
-      <a class="hover:ink" href="#features" x-text="t('OT','OT')"></a>·
-      <a class="hover:ink" href="#dev" x-text="t('مرجع','DEV')"></a>·
-      <a class="hover:ink" href="#downloads" x-text="t('تنزيل','DOWNLOADS')"></a>·
-      <a class="hover:ink" href="#designers" x-text="t('مصمّم','DESIGN')"></a>
+<header class="sticky top-0 z-40 hair border-b" style="background:color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter:saturate(1.1) blur(6px);">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 h-14 flex items-center gap-5">
+    <a href="#top" class="text-xl font-bold tracking-tight ink">زاد<span class="accent">.</span></a>
+    <nav class="hidden lg:flex items-center gap-5 tag ink-soft no-print">
+      <a class="hover:ink" href="#tester" x-text="t('جرّب','Try')"></a>
+      <a class="hover:ink" href="#weights" x-text="t('الأوزان','Weights')"></a>
+      <a class="hover:ink" href="#install" x-text="t('التركيب','Install')"></a>
+      <a class="hover:ink" href="#dev" x-text="t('للمطوّر','Dev')"></a>
+      <a class="hover:ink" href="#downloads" x-text="t('تنزيل','Get')"></a>
+      <a class="hover:ink" href="#designers" x-text="t('للمصمّم','Design')"></a>
     </nav>
-    <div class="ms-auto flex items-center gap-3 no-print">
-      <button @click="toggleLang" class="rule border px-2 py-1 hover:bg-accent" :title="t('English','العربية')">
-        <span x-text="lang.toUpperCase()"></span> ↔ <span x-text="(lang==='ar'?'EN':'AR')"></span>
+    <div class="ms-auto flex items-center gap-2 no-print">
+      <button @click="toggleLang" class="btn btn-ghost !py-1.5 !px-2.5 tag" :title="t('English','العربية')">
+        <span x-text="lang==='ar' ? 'EN' : 'ع'"></span>
       </button>
-      <button @click="toggleTheme" class="rule border px-2 py-1" :title="t('قلب الموضوع','Toggle theme')">
-        <span x-text="theme==='light' ? '◐' : '◑'"></span>
+      <button @click="toggleTheme" class="btn btn-ghost !py-1.5 !px-2.5" :title="t('قلب الإضاءة','Toggle theme')">
+        <span x-text="theme==='light' ? '☾' : '☀'"></span>
       </button>
-      <a href="https://github.com/ahmedvnabil/zad-font" class="rule border px-2 py-1 hover:bg-accent">GITHUB →</a>
+      <a href="https://github.com/ahmedvnabil/zad-font" class="btn btn-primary !py-1.5 !px-3 tag">GitHub ↗</a>
     </div>
   </div>
 </header>
 
 <main id="top">
 
-<!-- ============ HERO ============ -->
-<section class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10 md:py-16 grid md:grid-cols-12 gap-6">
-    <div class="md:col-span-2 mono text-[11px] uppercase tracking-[0.15em] mute">
-      <div class="num-stamp">§ 01</div>
-      <div x-text="t('الإصدار','RELEASE')"></div>
-      <div class="ink">v1.0 · 2026</div>
-    </div>
+<!-- ============ HERO — saffron drench ============ -->
+<section class="hair border-b overflow-hidden">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12 md:py-20 grid lg:grid-cols-12 gap-10 items-center">
 
-    <div class="md:col-span-7">
-      <!-- Massive display word — Arabic or English depending on lang -->
-      <div class="display" style="font-size: clamp(120px, 18vw, 280px);">
-        <span x-show="lang==='ar'">زاد</span>
-        <span x-show="lang==='en'" class="display-latin">Zad</span>
-      </div>
-      <div class="mt-4 text-2xl md:text-3xl font-medium leading-snug max-w-[36ch]">
-        <span x-text="t(
-          'خطٌّ عربيٌّ نظيف للويب — مفتوحُ المصدر، خمسةُ أوزان، وملفٌ مضغوطٌ يشتغل في أيّ موقع.',
-          'A clean Arabic web font. Open-source. Five weights. Drops into any site as one tiny file.'
-        )"></span>
-      </div>
-      <div class="mt-6 flex flex-wrap items-center gap-2 mono text-[12px] uppercase tracking-[0.08em] no-print">
-        <a href="https://github.com/ahmedvnabil/zad-font/releases/latest" class="bg-accent px-4 py-2.5">
-          ↓ <span x-text="t('تنزيل الكِت','DOWNLOAD KIT')"></span>
+    <div class="lg:col-span-8 rise">
+      <div class="tag accent mb-4 num">v1.0 — 2026 · SIL OFL 1.1 · <span x-text="t('مفتوح المصدر','open source')"></span></div>
+
+      <div class="disp disp-ar" style="font-size:clamp(116px,21vw,300px);" x-show="lang==='ar'">زاد<span class="accent">.</span></div>
+      <div class="disp disp-en" style="font-size:clamp(116px,21vw,300px);" x-show="lang==='en'" x-cloak>Zad<span class="accent">.</span></div>
+
+      <p class="mt-6 text-2xl md:text-4xl font-medium leading-snug max-w-[34ch]" x-text="t(
+        'خطٌّ عربيٌّ نظيفٌ للويب — هذه الصفحةُ نفسُها مكتوبةٌ به.',
+        'A clean Arabic web font. This whole page is set in it.'
+      )"></p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3 no-print">
+        <a href="https://github.com/ahmedvnabil/zad-font/releases/latest" class="btn btn-primary text-base">
+          ↓ <span x-text="t('نزّل الكِت','Download kit')"></span>
         </a>
-        <a href="#install" class="rule border px-4 py-2.5 hover:bg-accent">
-          <span x-text="t('التركيب','INSTALL')"></span>
-        </a>
-        <a href="#tester" class="rule border px-4 py-2.5 hover:bg-accent">
-          <span x-text="t('جرّبه','TRY IT')"></span>
-        </a>
-        <a href="https://github.com/ahmedvnabil/zad-font" class="rule border px-4 py-2.5 hover:bg-accent">
-          GITHUB →
-        </a>
+        <a href="#tester" class="btn btn-ghost text-base" x-text="t('جرّب الخط','Try the font')"></a>
+        <a href="#install" class="btn btn-ghost text-base" x-text="t('طريقة التركيب','How to install')"></a>
       </div>
     </div>
 
-    <div class="md:col-span-3 mono text-[11px] uppercase tracking-[0.12em] grid-rows-info">
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('الترخيص','License')"></span><span class="ink">SIL OFL 1.1</span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('السعر','Price')"></span><span class="ink" x-text="t('مجاني','FREE')"></span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('الأوزان','Weights')"></span><span class="ink num-stamp">5</span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('الصيغة','Format')"></span><span class="ink">woff2 + ttf</span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('حجم الملف','File / weight')"></span><span class="ink num-stamp">~68 KB</span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('المحرفات','Glyphs')"></span><span class="ink num-stamp">1,657</span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('اللغات','Scripts')"></span><span class="ink">AR · LAT</span></div>
-      <div class="py-2 flex justify-between gap-3"><span class="mute" x-text="t('فحص الجودة','QA')"></span><span class="ink">FontBakery ✓</span></div>
-    </div>
+    <!-- spec rail -->
+    <aside class="lg:col-span-4 rise rise-2">
+      <div class="hair border-t">
+        <template x-for="row in [
+          {k_ar:'الأوزان',k_en:'Weights',v:'5',num:true},
+          {k_ar:'الصيغة',k_en:'Format',v:'woff2 + ttf'},
+          {k_ar:'الحجم/وزن',k_en:'Per weight',v:'~67 KB',num:true},
+          {k_ar:'المحارف',k_en:'Glyphs',v:'1,657',num:true},
+          {k_ar:'النصوص',k_en:'Scripts',v:'AR · LAT'},
+          {k_ar:'فحص الجودة',k_en:'QA',v:'FontBakery ✓'},
+          {k_ar:'الرخصة',k_en:'License',v:'SIL OFL 1.1'},
+        ]" :key="row.k_en">
+          <div class="hair border-b flex items-baseline justify-between gap-4 py-2.5">
+            <span class="tag ink-soft" x-text="t(row.k_ar,row.k_en)"></span>
+            <span class="text-lg font-medium" :class="row.num ? 'num' : ''" x-text="row.v"></span>
+          </div>
+        </template>
+      </div>
+    </aside>
   </div>
 </section>
 
 <!-- ============ WEIGHT LADDER ============ -->
-<section class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 pt-10 pb-4">
-    <div class="flex items-end justify-between gap-4 mb-4">
-      <div>
-        <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 02</span> — <span x-text="t('سلّم الأوزان','WEIGHT LADDER')"></span></div>
-        <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('خمسة أوزان، رِكاب واحد.','Five weights, one ladder.')"></h2>
-      </div>
-      <div class="mono text-[11px] uppercase tracking-[0.1em] mute hidden md:block">
-        <span x-text="t('اضغط على وزن لتراه في المُختبِر','Click a weight to load it into the tester')"></span> ↓
-      </div>
+<section id="weights" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 pt-12 pb-5 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <div class="tag ink-soft num">§ 01 — <span x-text="t('سلّم الأوزان','Weight ladder')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('خمسةُ أوزان. ركابٌ واحد.','Five weights, one ladder.')"></h2>
     </div>
+    <p class="tag ink-soft hidden md:block" x-text="t('اضغط وزنًا لتحميله في المُختبِر ↓','Tap a weight to load it into the tester ↓')"></p>
   </div>
 
   <template x-for="w in [
-    {name:'Light',     ar:'خفيف',   class:300},
-    {name:'Regular',   ar:'عادي',   class:400},
-    {name:'Medium',    ar:'متوسّط', class:500},
-    {name:'SemiBold',  ar:'نصف عريض', class:600},
-    {name:'Bold',      ar:'عريض',   class:700},
-  ]" :key="w.class">
-    <button type="button" @click="tester.weight = w.class; document.getElementById('tester')?.scrollIntoView({behavior:'smooth'})"
-      class="ladder-row w-full text-left grid grid-cols-12 items-baseline gap-2 px-4 md:px-8 py-4 md:py-6 hover:bg-accent">
-      <div class="col-span-2 md:col-span-1 mono text-[11px] uppercase tracking-[0.12em] mute num-stamp" x-text="w.class"></div>
-      <div class="col-span-3 md:col-span-2 mono text-[11px] uppercase tracking-[0.12em]">
-        <span x-text="w.name"></span> · <span x-text="w.ar"></span>
-      </div>
-      <div class="col-span-12 md:col-span-9 text-3xl md:text-5xl leading-tight tracking-tight"
-           :style="`font-weight:${w.class}`">
-        <span x-show="lang==='ar'">الخطُّ زادٌ للمسافر، ولغةُ العملِ للناس.</span>
-        <span x-show="lang==='en'">A clean Arabic webfont for dense, operational interfaces. — 0123456789</span>
+    {name:'Light',ar:'خفيف',c:300},{name:'Regular',ar:'عادي',c:400},{name:'Medium',ar:'متوسّط',c:500},
+    {name:'SemiBold',ar:'نصف عريض',c:600},{name:'Bold',ar:'عريض',c:700}]" :key="w.c">
+    <button type="button" @click="tester.weight=w.c; document.getElementById('tester')?.scrollIntoView({behavior:'smooth'})"
+      class="ladder w-full text-start grid grid-cols-12 items-baseline gap-3 px-5 md:px-8 py-5 md:py-7 no-print">
+      <div class="col-span-3 md:col-span-1 tag ink-soft num" x-text="w.c"></div>
+      <div class="col-span-9 md:col-span-2 tag" ><span x-text="w.name"></span> · <span x-text="w.ar"></span></div>
+      <div class="col-span-12 md:col-span-9 text-3xl md:text-6xl leading-tight" :style="`font-weight:${w.c}`">
+        <span x-show="lang==='ar'">الخطُّ زادٌ للمسافرِ، ولغةُ العملِ للناس.</span>
+        <span x-show="lang==='en'" x-cloak>A clean Arabic webfont for dense interfaces — <span class="num">0123456789</span></span>
       </div>
     </button>
   </template>
 </section>
 
-<!-- ============ TYPE TESTER ============ -->
-<section id="tester" class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 pt-10 pb-4">
-    <div class="flex items-end justify-between gap-4 flex-wrap">
-      <div>
-        <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 03</span> — <span x-text="t('مُختبِر الطباعة','TYPE TESTER')"></span></div>
-        <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('اكتب أيّ شيء.','Type anything.')"></h2>
-      </div>
-      <div class="mono text-[11px] uppercase tracking-[0.1em] mute" x-text="t('عربي + لاتيني + أرقام · حقيقي, مش معاينة','Arabic + Latin + digits · live, not a screenshot')"></div>
+<!-- ============ TYPE TESTER — deep ink panel ============ -->
+<section id="tester" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 pt-12 pb-6 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <div class="tag ink-soft num">§ 02 — <span x-text="t('مُختبِر الطباعة','Type tester')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('اكتب أيَّ شيء.','Type anything.')"></h2>
     </div>
+    <p class="tag ink-soft" x-text="t('حقيقي — مش صورة','Live, not a screenshot')"></p>
   </div>
 
-  <!-- Controls -->
-  <div class="rule border-t border-b grid grid-cols-2 md:grid-cols-4 mono text-[11px] uppercase tracking-[0.1em] no-print">
-    <label class="rule border-e p-3 flex items-center gap-3">
-      <span class="mute w-16" x-text="t('الوزن','WEIGHT')"></span>
-      <input type="range" min="300" max="700" step="100" x-model.number="tester.weight" class="flex-1">
-      <span class="num-stamp w-10 text-end" x-text="tester.weight"></span>
-    </label>
-    <label class="rule border-e p-3 flex items-center gap-3">
-      <span class="mute w-16" x-text="t('الحجم','SIZE')"></span>
-      <input type="range" min="20" max="200" step="2" x-model.number="tester.size" class="flex-1">
-      <span class="num-stamp w-10 text-end"><span x-text="tester.size"></span>px</span>
-    </label>
-    <label class="rule border-e p-3 flex items-center gap-3">
-      <span class="mute w-16" x-text="t('المحاذاة','ALIGN')"></span>
-      <select x-model="tester.align" class="flex-1 bg-transparent border rule px-2 py-1">
-        <option value="right">→ right</option>
-        <option value="left">← left</option>
-        <option value="center">↔ center</option>
-        <option value="justify">▭ justify</option>
-      </select>
-    </label>
-    <label class="p-3 flex items-center gap-3">
-      <span class="mute w-16" x-text="t('اللغة','LANG')"></span>
-      <div class="flex-1 flex gap-1">
-        <button class="rule border px-2 py-1 flex-1" :class="lang==='ar'?'bg-accent':''" @click="lang='ar'">AR</button>
-        <button class="rule border px-2 py-1 flex-1" :class="lang==='en'?'bg-accent':''" @click="lang='en'">EN</button>
-      </div>
-    </label>
-  </div>
-
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-6">
-    <textarea class="tester"
-      :style="`font-weight:${tester.weight}; font-size:${tester.size}px; line-height:1.15; text-align:${tester.align};`"
-      :dir="dir" x-model="tester.text"
-      :placeholder="t('اكتب هنا… الكتابةُ نَفَسٌ.','Type here… the font is live.')"></textarea>
-  </div>
-</section>
-
-<!-- ============ CHARACTER SET ============ -->
-<section class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 04</span> — <span x-text="t('مجموعة المحارف','CHARACTER SET')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('الحروف والأرقام.','Letters and figures.')"></h2>
-    </div>
-
-    <!-- Arabic -->
-    <div class="mb-8">
-      <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-2" x-text="t('عربي','ARABIC')"></div>
-      <div class="grid grid-cols-7 md:grid-cols-14 -m-px" dir="rtl">
-        <template x-for="ch in 'ابتثجحخدذرزسشصضطظعغفقكلمنهويءآأؤإئىةڤچپژگ'.split('')" :key="ch">
-          <div class="glyph-cell -ms-px -mt-px" x-text="ch"></div>
-        </template>
-      </div>
-    </div>
-
-    <!-- Latin -->
-    <div class="mb-8">
-      <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-2" x-text="t('لاتيني','LATIN')"></div>
-      <div class="grid grid-cols-13 md:grid-cols-13 -m-px" style="grid-template-columns: repeat(13, minmax(0, 1fr));" dir="ltr">
-        <template x-for="ch in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')" :key="ch">
-          <div class="glyph-cell -ms-px -mt-px" x-text="ch"></div>
-        </template>
-      </div>
-    </div>
-
-    <!-- Digits + punctuation -->
-    <div class="grid md:grid-cols-2 gap-8">
-      <div>
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-2" x-text="t('أرقام','FIGURES')"></div>
-        <div class="grid grid-cols-10 -m-px" dir="ltr">
-          <template x-for="ch in '0123456789'.split('')" :key="'lat'+ch"><div class="glyph-cell -ms-px -mt-px" x-text="ch"></div></template>
-          <template x-for="ch in '٠١٢٣٤٥٦٧٨٩'.split('')" :key="'ar'+ch"><div class="glyph-cell -ms-px -mt-px" x-text="ch"></div></template>
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 pb-12">
+    <div class="panel rounded-sm overflow-hidden">
+      <!-- controls -->
+      <div class="grid grid-cols-2 md:grid-cols-4 no-print" style="border-bottom:1px solid var(--panel-line)">
+        <label class="p-3.5 flex items-center gap-3 tag" style="border-inline-end:1px solid var(--panel-line)">
+          <span class="soft w-14" x-text="t('الوزن','Weight')"></span>
+          <input type="range" min="300" max="700" step="100" x-model.number="tester.weight" class="flex-1">
+          <span class="num w-9 text-end" x-text="tester.weight"></span>
+        </label>
+        <label class="p-3.5 flex items-center gap-3 tag" style="border-inline-end:1px solid var(--panel-line)">
+          <span class="soft w-14" x-text="t('الحجم','Size')"></span>
+          <input type="range" min="24" max="200" step="2" x-model.number="tester.size" class="flex-1">
+          <span class="num w-12 text-end"><span x-text="tester.size"></span>px</span>
+        </label>
+        <label class="p-3.5 flex items-center gap-3 tag" style="border-inline-end:1px solid var(--panel-line)">
+          <span class="soft w-14" x-text="t('المحاذاة','Align')"></span>
+          <select x-model="tester.align" class="flex-1 bg-transparent" style="color:var(--on-panel); border:1px solid var(--panel-line); padding:.3rem .4rem; border-radius:2px;">
+            <option value="right">→ right</option><option value="left">← left</option>
+            <option value="center">↔ center</option><option value="justify">▭ justify</option>
+          </select>
+        </label>
+        <div class="p-3.5 flex items-center gap-3 tag">
+          <span class="soft w-14" x-text="t('اللغة','Lang')"></span>
+          <div class="flex-1 flex gap-1.5">
+            <button class="flex-1 py-1.5 rounded-sm" :style="lang==='ar' ? 'background:var(--btn-bg);color:var(--btn-fg)' : 'border:1px solid var(--panel-line);color:var(--on-panel)'" @click="lang='ar'">عربي</button>
+            <button class="flex-1 py-1.5 rounded-sm" :style="lang==='en' ? 'background:var(--btn-bg);color:var(--btn-fg)' : 'border:1px solid var(--panel-line);color:var(--on-panel)'" @click="lang='en'">EN</button>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-2" x-text="t('علامات','PUNCTUATION')"></div>
-        <div class="grid grid-cols-10 -m-px" dir="ltr">
-          <template x-for="ch in ['.',',',':',';','!','?','«','»','“','”','‘','’','—','–','-','/','\\','(',')','[',']','{','}','«','»','،','؛','؟','…','#','@','&','*','+','=','%','$','€','£','¥','₪'].slice(0,30)" :key="'p'+ch">
-            <div class="glyph-cell -ms-px -mt-px" x-text="ch"></div>
-          </template>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INSTALL ============ -->
-<section id="install" class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 05</span> — <span x-text="t('التركيب','INSTALL')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('ثلاث طُرق. اختر واحدة.','Three ways. Pick one.')"></h2>
-      <p class="mute mt-2 max-w-[60ch]" x-text="t(
-        'الخط نفسه صفر اعتماديات: ملفان (الوزن + zad.css) في الفولدر بتاعك وخلاص.',
-        'The font itself has zero dependencies: two files (weight + zad.css) in your folder and you are done.'
-      )"></p>
-    </div>
-
-    <div class="grid lg:grid-cols-3 gap-4">
-
-      <!-- HTML -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span>① HTML</span>
-          <button class="rule border px-2 hover:bg-accent no-print"
-                  @click="copy(`<link rel=\&quot;stylesheet\&quot; href=\&quot;zad-font/zad.css\&quot;>`, $event)"
-                  x-text="t('نسخ','copy')"></button>
-        </header>
-        <pre class="code mono text-[13px]"><span class="com">&lt;!-- in &lt;head&gt; --&gt;</span>
-&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span>
-      href=<span class="str">"zad-font/zad.css"</span>&gt;</pre>
-      </article>
-
-      <!-- CSS -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span>② CSS</span>
-          <button class="rule border px-2 hover:bg-accent no-print"
-                  @click="copy(`body { font-family: 'Zad', sans-serif; }`, $event)"
-                  x-text="t('نسخ','copy')"></button>
-        </header>
-        <pre class="code mono text-[13px]">body {
-  font-family: <span class="str">'Zad'</span>, sans-serif;
-  <span class="com">/* or: var(--font-zad) — has fallback */</span>
-}
-h1   { font-weight: <span class="kw">700</span>; }
-.lead{ font-weight: <span class="kw">500</span>; }
-p    { font-weight: <span class="kw">400</span>; }</pre>
-      </article>
-
-      <!-- Tailwind -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span>③ Tailwind</span>
-          <button class="rule border px-2 hover:bg-accent no-print"
-                  @click="copy(`fontFamily: { zad: ['Zad','sans-serif'] }`, $event)"
-                  x-text="t('نسخ','copy')"></button>
-        </header>
-        <pre class="code mono text-[13px]"><span class="com">// tailwind.config</span>
-theme: { extend: {
-  fontFamily: {
-    zad: [<span class="str">'Zad'</span>, <span class="str">'sans-serif'</span>]
-  }
-}}
-
-<span class="com">// usage</span>
-&lt;body class=<span class="str">"font-zad"</span>&gt;…</pre>
-      </article>
-    </div>
-
-    <!-- CDN / one-liner -->
-    <div class="mt-6 rule border p-4 md:p-5 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-      <div>
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute" x-text="t('بدون رفع ملفات؟','NO HOSTING?')"></div>
-        <div class="text-lg" x-text="t(
-          'استورد الـCSS مباشرة من جت-هَب عبر jsDelivr — سطرٌ واحد.',
-          'Import the CSS directly from GitHub via jsDelivr — one line.'
-        )"></div>
-      </div>
-      <div class="flex-1 max-w-full md:max-w-[640px]">
-        <pre class="code mono text-[12px]">&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span>
-   href=<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/zad.css"</span>&gt;</pre>
+      <!-- canvas -->
+      <div class="p-5 md:p-8">
+        <textarea class="tester" rows="3"
+          :style="`font-weight:${tester.weight}; font-size:${tester.size}px; line-height:1.2; text-align:${tester.align};`"
+          :dir="dir" x-model="tester.text"
+          :placeholder="t('اكتب هنا…','Type here…')"></textarea>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ OPENTYPE FEATURES ============ -->
-<section id="features" class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 06</span> — <span x-text="t('خصائص OpenType','OPENTYPE FEATURES')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('مزايا الطباعة. شغّلها وأغلقها.','Typography features. Toggle live.')"></h2>
-      <p class="mute mt-2 max-w-[60ch]" x-text="t(
-        'الخط بيحمل كل الخصائص اللي بتخلي العربي يتشكّل صح (calt + mark) — كلهم مفعّلين في المتصفحات بشكل افتراضي.',
-        'The font keeps every layout feature needed for correct Arabic shaping (calt + mark) — all on by default in browsers.'
+<section id="features" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12">
+    <div class="mb-7 max-w-[60ch]">
+      <div class="tag ink-soft num">§ 03 — <span x-text="t('خصائص OpenType','OpenType features')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('مزايا الطباعة، حيّة.','Typography features, live.')"></h2>
+      <p class="ink-soft mt-3 text-lg" x-text="t(
+        'الخطُّ يحملُ كلَّ ما يلزمُ لتشكيلِ العربيةِ صحيحًا (calt + mark) — مفعّلٌ افتراضيًّا في المتصفحات.',
+        'The font keeps every feature needed for correct Arabic shaping (calt + mark) — all on by default in browsers.'
       )"></p>
     </div>
 
-    <!-- Feature toggles -->
-    <div class="grid grid-cols-2 md:grid-cols-5 rule border mono text-[11px] uppercase tracking-[0.1em] no-print">
-      <template x-for="(label, key) in {kern:'kern',liga:'liga',calt:'calt',tnum:'tnum',mark:'mark'}" :key="key">
-        <label class="rule border-e last:border-e-0 p-3 flex items-center justify-between gap-2 cursor-pointer hover:bg-accent"
-               :class="feat[key] ? 'ink' : 'mute'">
-          <span>
-            <span class="num-stamp" x-text="label"></span>
-            <span class="block normal-case tracking-normal text-[10px] mute" x-text="{
-              kern: t('تقطيع المسافات','Kerning'),
-              liga: t('روابط معيارية','Std. ligatures'),
-              calt: t('تشكيل عربي','Arabic shaping'),
-              tnum: t('أرقام جدولية','Tabular numerals'),
-              mark: t('تشكيل التشكيل','Mark positioning'),
-            }[key]"></span>
-          </span>
-          <input type="checkbox" x-model="feat[key]" class="accent-current">
+    <div class="flex flex-wrap gap-2 mb-7 no-print">
+      <template x-for="key in ['kern','liga','calt','tnum','mark']" :key="key">
+        <label class="btn cursor-pointer tag select-none"
+               :class="feat[key] ? 'btn-primary' : 'btn-ghost'">
+          <input type="checkbox" x-model="feat[key]" class="hidden">
+          <span class="num" x-text="key"></span>
+          <span x-text="feat[key] ? '✓' : ''"></span>
         </label>
       </template>
     </div>
 
-    <!-- Demos -->
-    <div class="grid md:grid-cols-2 gap-6 mt-6">
-      <article class="rule border p-5">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-2" x-text="t('تشكيل عربي + روابط','Arabic shaping + ligatures')"></div>
-        <div class="text-4xl md:text-5xl leading-snug" dir="rtl"
-             :style="`font-weight:500; font-feature-settings:${featCss};`">
-          الله، لا، لله، محمد، الكتابة، تَشكِيلٌ، السَّلامُ
+    <div class="grid md:grid-cols-2 gap-5">
+      <article class="paper rounded-sm p-6">
+        <div class="tag soft mb-3" x-text="t('تشكيل عربي + روابط','Arabic shaping + ligatures')"></div>
+        <div class="text-4xl md:text-5xl leading-[1.5]" dir="rtl" :style="`font-weight:500; font-feature-settings:${featCss};`">
+          الله · لا · لله · محمد · السَّلامُ · تَشكيلٌ
         </div>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute mt-3" x-text="t(
-          'جرّب تطفي calt — هتلاحظ إن الحروف العربية بتفصل ومش بتوصل ببعض.',
-          'Turn calt off — Arabic letters disconnect and stop joining.'
-        )"></div>
+        <p class="text-sm soft mt-4" x-text="t('أطفئ calt وشوف الحروف بتفصل.','Turn calt off and watch letters disconnect.')"></p>
       </article>
-
-      <article class="rule border p-5">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-2" x-text="t('أرقام جدولية (tnum)','Tabular numerals (tnum)')"></div>
-        <pre class="mono text-xl md:text-2xl leading-snug ink" style="background:transparent;color:inherit;border:0;padding:0;"
-             :style="`font-feature-settings:${featCss};`">
-2026-06-14  |  $ 12,408.55  |  USD/EUR  1.0729
-2026-06-15  |  $    317.00  |  USD/EUR  1.0731
-2026-06-16  |  $ 99,001.21  |  USD/EUR  1.0744</pre>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute mt-3" x-text="t(
-          'شغّل tnum — كل الأرقام بتاخد نفس العرض، أعمدة الجدول بتترصّ.',
-          'Enable tnum — all digits get equal width, columns align.'
-        )"></div>
+      <article class="paper rounded-sm p-6">
+        <div class="tag soft mb-3" x-text="t('أرقام جدولية (tnum)','Tabular numerals (tnum)')"></div>
+        <div class="text-xl md:text-2xl leading-[1.7] num" dir="ltr" :style="`font-feature-settings:${featCss};`">
+2026-06-14&nbsp;&nbsp;$ 12,408.55<br>
+2026-06-15&nbsp;&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;317.00<br>
+2026-06-16&nbsp;&nbsp;$ 99,001.21
+        </div>
+        <p class="text-sm soft mt-4" x-text="t('شغّل tnum — الأعمدة بتترصّ.','Enable tnum — columns line up.')"></p>
       </article>
     </div>
 
-    <!-- CSS for this state -->
-    <div class="mt-6 rule border p-4 md:p-5 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-      <div class="mono text-[11px] uppercase tracking-[0.12em] mute" x-text="t('الـCSS اللي بيقابل الإعدادات دي','CSS for this state')"></div>
-      <pre class="code mono text-[12px] flex-1 max-w-full md:max-w-[640px] m-0">body { font-feature-settings: <span x-text="featCss"></span>; }</pre>
-      <button class="rule border px-3 py-2 hover:bg-accent mono text-[11px] uppercase tracking-[0.1em] no-print"
-              @click="copy(`body { font-feature-settings: ${featCss}; }`, $event)"
-              x-text="t('نسخ','copy')"></button>
+    <div class="mt-5 flex flex-col md:flex-row gap-3 md:items-center md:justify-between hair border-t pt-5">
+      <span class="tag ink-soft" x-text="t('الـCSS المقابل','CSS for this state')"></span>
+      <pre class="code flex-1 md:max-w-[640px] m-0">body { font-feature-settings: <span x-text="featCss"></span>; }</pre>
+      <button class="btn btn-ghost tag no-print" @click="copy(`body { font-feature-settings: ${featCss}; }`, $event)" x-text="t('نسخ','Copy')"></button>
     </div>
   </div>
 </section>
 
-<!-- ============ DEV REFERENCE ============ -->
-<section id="dev" class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 07</span> — <span x-text="t('مرجع الديفلوبر','DEVELOPER REFERENCE')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('كل اللي محتاجه علشان تستخدمه في كود حقيقي.','Everything you need to ship Zad in real code.')"></h2>
+<!-- ============ CHARACTER SET ============ -->
+<section class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12">
+    <div class="mb-7">
+      <div class="tag ink-soft num">§ 04 — <span x-text="t('مجموعة المحارف','Character set')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('الحروفُ والأرقام.','Letters and figures.')"></h2>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-6">
+    <div class="mb-8">
+      <div class="tag ink-soft mb-2" x-text="t('عربي','Arabic')"></div>
+      <div class="grid grid-cols-7 md:grid-cols-14" dir="rtl">
+        <template x-for="ch in 'ابتثجحخدذرزسشصضطظعغفقكلمنهويءآأؤإئىةڤچپژگ'.split('')" :key="ch">
+          <div class="glyph -ms-px -mt-px" x-text="ch"></div></template>
+      </div>
+    </div>
 
-      <!-- CSS variable + fallback stack -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span>CSS VARIABLE + FALLBACK STACK</span>
-          <button class="rule border px-2 hover:bg-accent no-print"
-                  @click="copy(`font-family: var(--font-zad);`, $event)"
-                  x-text="t('نسخ','copy')"></button>
-        </header>
-        <pre class="code mono text-[12px]">:root {
-  <span class="kw">--font-zad</span>: <span class="str">"Zad"</span>,
-    <span class="str">"Segoe UI"</span>, system-ui, -apple-system,
-    <span class="str">"Helvetica Neue"</span>, Arial,
+    <div class="mb-8">
+      <div class="tag ink-soft mb-2" x-text="t('لاتيني','Latin')"></div>
+      <div class="grid" style="grid-template-columns:repeat(13,minmax(0,1fr));" dir="ltr">
+        <template x-for="ch in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')" :key="ch">
+          <div class="glyph -ms-px -mt-px" x-text="ch"></div></template>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <div class="tag ink-soft mb-2" x-text="t('أرقام','Figures')"></div>
+        <div class="grid grid-cols-10" dir="ltr">
+          <template x-for="ch in '0123456789'.split('')" :key="'l'+ch"><div class="glyph -ms-px -mt-px num" x-text="ch"></div></template>
+          <template x-for="ch in '٠١٢٣٤٥٦٧٨٩'.split('')" :key="'a'+ch"><div class="glyph -ms-px -mt-px" x-text="ch"></div></template>
+        </div>
+      </div>
+      <div>
+        <div class="tag ink-soft mb-2" x-text="t('علامات','Punctuation')"></div>
+        <div class="grid grid-cols-10" dir="ltr">
+          <template x-for="ch in ['.',',',':',';','!','?','«','»','“','”','‘','’','—','–','/','(',')','[',']','{','}','،','؛','؟','…','#','@','&','%','+'].slice(0,30)" :key="'p'+ch">
+            <div class="glyph -ms-px -mt-px" x-text="ch"></div></template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECIMEN — paper "printed page" on the saffron desk ============ -->
+<section class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-14">
+    <div class="tag ink-soft num mb-5">§ 05 — <span x-text="t('فقرةُ عرض','Reading specimen')"></span></div>
+    <div class="paper rounded-sm p-7 md:p-14 grid md:grid-cols-2 gap-10 shadow-sm">
+      <div dir="rtl" lang="ar">
+        <p class="text-xl md:text-3xl leading-[1.9]" style="font-weight:400">
+          زادٌ خطٌّ عربيٌّ نظيفٌ، يُريحُ العينَ في الجداولِ ولوحاتِ المراقبةِ، ويصبرُ
+          على النصِّ الطويلِ في الكتبِ والتقارير. صُنِعَ ليكونَ أداةً عمليّةً قبلَ أن
+          يكونَ زينةً، وليبقى مفتوحًا للجميعِ تحتَ رخصةٍ حُرّة. استخدمْه في مشاريعِكَ
+          الشخصيّةِ والتجاريّةِ بلا قيد. <span class="num" style="font-weight:500">— ٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩</span>
+        </p>
+      </div>
+      <div dir="ltr" lang="en">
+        <p class="text-xl md:text-3xl leading-[1.7]" style="font-weight:400">
+          Zad is a calm, operational Arabic webfont, comfortable in dense tables and
+          dashboards, and patient in long-form reading. It was made to work first and
+          decorate second, and it stays open to everyone under a free license. Use it in
+          personal and commercial projects without restriction. <span class="num" style="font-weight:500">— 0 1 2 3 4 5 6 7 8 9</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTALL ============ -->
+<section id="install" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12">
+    <div class="mb-7 max-w-[60ch]">
+      <div class="tag ink-soft num">§ 06 — <span x-text="t('التركيب','Install')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('ثلاثُ طرق. اختر واحدة.','Three ways. Pick one.')"></h2>
+      <p class="ink-soft mt-3 text-lg" x-text="t(
+        'الخطُّ نفسُه صفرُ اعتماديات: ملفّان (الوزن + zad.css) في فولدرك وخلاص.',
+        'The font itself has zero dependencies: two files (weight + zad.css) in your folder and you are done.'
+      )"></p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-5">
+      <article>
+        <div class="flex items-center justify-between mb-2">
+          <span class="tag ink-soft">① HTML</span>
+          <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy('<link rel=&quot;stylesheet&quot; href=&quot;zad-font/zad.css&quot;>', $event)" x-text="t('نسخ','Copy')"></button>
+        </div>
+        <pre class="code m-0"><span class="com">&lt;!-- in &lt;head&gt; --&gt;</span>
+&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span>
+   href=<span class="str">"zad-font/zad.css"</span>&gt;</pre>
+      </article>
+      <article>
+        <div class="flex items-center justify-between mb-2">
+          <span class="tag ink-soft">② CSS</span>
+          <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy(`body { font-family: 'Zad', sans-serif; }`, $event)" x-text="t('نسخ','Copy')"></button>
+        </div>
+        <pre class="code m-0">body {
+  font-family: <span class="str">'Zad'</span>, sans-serif;
+}
+h1   { font-weight: <span class="kw">700</span>; }
+.lead{ font-weight: <span class="kw">500</span>; }
+p    { font-weight: <span class="kw">400</span>; }</pre>
+      </article>
+      <article>
+        <div class="flex items-center justify-between mb-2">
+          <span class="tag ink-soft">③ Tailwind</span>
+          <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy(`fontFamily: { zad: ['Zad','sans-serif'] }`, $event)" x-text="t('نسخ','Copy')"></button>
+        </div>
+        <pre class="code m-0"><span class="com">// tailwind.config</span>
+extend: { fontFamily: {
+  zad: [<span class="str">'Zad'</span>, <span class="str">'sans-serif'</span>]
+}}
+<span class="com">// markup</span>
+&lt;body class=<span class="str">"font-zad"</span>&gt;</pre>
+      </article>
+    </div>
+
+    <div class="mt-6 paper rounded-sm p-6 flex flex-col md:flex-row gap-5 md:items-center md:justify-between">
+      <div>
+        <div class="tag soft" x-text="t('بدون رفع ملفات؟','No hosting?')"></div>
+        <div class="text-lg mt-1" x-text="t('استورد الـCSS من jsDelivr — سطرٌ واحد.','Import the CSS from jsDelivr — one line.')"></div>
+      </div>
+      <pre class="code flex-1 md:max-w-[620px] m-0">&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span> href=<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/zad.css"</span>&gt;</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEVELOPER REFERENCE ============ -->
+<section id="dev" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12">
+    <div class="mb-7">
+      <div class="tag ink-soft num">§ 07 — <span x-text="t('مرجعُ المطوّر','Developer reference')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('كلُّ ما يلزمُ لكودٍ حقيقيّ.','Everything to ship it in real code.')"></h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-5">
+      <article>
+        <div class="tag ink-soft mb-2" x-text="t('متغيّر CSS + سلسلة احتياطية','CSS variable + fallback stack')"></div>
+        <pre class="code m-0">:root {
+  <span class="kw">--font-zad</span>: <span class="str">"Zad"</span>, <span class="str">"Segoe UI"</span>,
+    system-ui, -apple-system,
     <span class="str">"Noto Sans Arabic"</span>, sans-serif;
 }
-
-body { font-family: <span class="kw">var</span>(--font-zad); }
-.font-zad { font-family: <span class="kw">var</span>(--font-zad); }</pre>
+body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
       </article>
 
-      <!-- Recommended type scale -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span x-text="t('سلّم الأحجام المقترح','RECOMMENDED TYPE SCALE')"></span>
-          <span class="mute" x-text="t('للوحات تحكم كثيفة','for dense UI')"></span>
-        </header>
-        <table class="w-full mono text-[12px]">
-          <tbody>
-            <template x-for="row in [
-              {name:'Display',  cls:'text-display',  weight:700, size:72, lh:1.05, ar:'عرض'},
-              {name:'H1',       cls:'text-h1',       weight:700, size:32, lh:1.15, ar:'عنوان ١'},
-              {name:'H2',       cls:'text-h2',       weight:600, size:24, lh:1.2,  ar:'عنوان ٢'},
-              {name:'H3',       cls:'text-h3',       weight:600, size:18, lh:1.25, ar:'عنوان ٣'},
-              {name:'Body',     cls:'text-body',     weight:400, size:15, lh:1.55, ar:'نص'},
-              {name:'Small',    cls:'text-small',    weight:400, size:13, lh:1.45, ar:'صغير'},
-              {name:'Label',    cls:'text-label',    weight:500, size:11, lh:1.2,  ar:'تسمية'},
-              {name:'Mono/Num', cls:'text-num',      weight:500, size:13, lh:1.2,  ar:'أرقام'},
-            ]" :key="row.name">
-              <tr class="rule border-t">
-                <td class="p-2 ink" x-text="row.name"></td>
-                <td class="p-2 mute num-stamp" x-text="row.weight"></td>
-                <td class="p-2 mute num-stamp"><span x-text="row.size"></span>px / <span x-text="row.lh"></span></td>
-                <td class="p-2 swap" :style="`font-weight:${row.weight}; font-size:${Math.min(row.size,22)}px; line-height:${row.lh};`">
-                  <span x-show="lang==='ar'" x-text="row.ar"></span>
-                  <span x-show="lang==='en'" x-text="row.name"></span>
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute p-3 border-t rule" x-text="t(
-          'مقياس 1.25 (Major Third) — مناسب للجداول ولوحات التحكم.',
-          '1.25 (Major Third) scale — comfortable for tables and dashboards.'
-        )"></div>
+      <article>
+        <div class="tag ink-soft mb-2" x-text="t('سلّمُ الأحجام المقترح','Recommended type scale')"></div>
+        <div class="hair border-t">
+          <template x-for="r in [
+            {n:'Display',w:700,s:'72 / 1.05'},{n:'H1',w:700,s:'32 / 1.15'},{n:'H2',w:600,s:'24 / 1.2'},
+            {n:'Body',w:400,s:'15 / 1.7'},{n:'Small',w:400,s:'13 / 1.5'},{n:'Label',w:500,s:'12 / 1.2'}]" :key="r.n">
+            <div class="hair border-b flex items-center justify-between gap-3 py-2.5">
+              <span class="w-24 num tag ink-soft" x-text="r.w"></span>
+              <span class="flex-1" :style="`font-weight:${r.w}; font-size:18px;`" x-text="r.n"></span>
+              <span class="num tag ink-soft" x-text="r.s + ' px'"></span>
+            </div>
+          </template>
+        </div>
       </article>
 
-      <!-- Performance / preload -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span x-text="t('أداء: preload + preconnect','PERFORMANCE: preload + preconnect')"></span>
-          <button class="rule border px-2 hover:bg-accent no-print"
-                  @click="copy(document.getElementById('perf-snippet').innerText, $event)"
-                  x-text="t('نسخ','copy')"></button>
-        </header>
-        <pre id="perf-snippet" class="code mono text-[12px]"><span class="com">&lt;!-- self-hosted: preload Regular --&gt;</span>
+      <article>
+        <div class="tag ink-soft mb-2" x-text="t('أداء: preload','Performance: preload')"></div>
+        <pre id="perf" class="code m-0"><span class="com">&lt;!-- preload the above-the-fold weight --&gt;</span>
 &lt;<span class="kw">link</span> rel=<span class="str">"preload"</span> as=<span class="str">"font"</span>
-      type=<span class="str">"font/woff2"</span> crossorigin
-      href=<span class="str">"zad-font/fonts/Zad-Regular.woff2"</span>&gt;
-
-<span class="com">&lt;!-- jsDelivr: preconnect for faster TTFB --&gt;</span>
+   type=<span class="str">"font/woff2"</span> crossorigin
+   href=<span class="str">"zad-font/fonts/Zad-Regular.woff2"</span>&gt;
+<span class="com">&lt;!-- jsDelivr: speed up TTFB --&gt;</span>
 &lt;<span class="kw">link</span> rel=<span class="str">"preconnect"</span>
-      href=<span class="str">"https://cdn.jsdelivr.net"</span> crossorigin&gt;</pre>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute p-3 border-t rule" x-text="t(
-          'preload للوزن اللي بيبان فوق الـfold (عادةً Regular). الباقي بيتحمّل lazy.',
-          'Preload the weight visible above the fold (usually Regular). Others load lazily.'
-        )"></div>
+   href=<span class="str">"https://cdn.jsdelivr.net"</span> crossorigin&gt;</pre>
       </article>
 
-      <!-- Locale + numerals -->
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-          <span x-text="t('اللغة + الأرقام','LANG + NUMERALS')"></span>
-          <button class="rule border px-2 hover:bg-accent no-print"
-                  @click="copy(document.getElementById('locale-snippet').innerText, $event)"
-                  x-text="t('نسخ','copy')"></button>
-        </header>
-        <pre id="locale-snippet" class="code mono text-[12px]"><span class="com">&lt;!-- HTML root: pick a direction + lang --&gt;</span>
-&lt;<span class="kw">html</span> lang=<span class="str">"ar"</span> dir=<span class="str">"rtl"</span>&gt;
+      <article>
+        <div class="tag ink-soft mb-2" x-text="t('اللغة + الأرقام','Lang + numerals')"></div>
+        <pre id="loc" class="code m-0">&lt;<span class="kw">html</span> lang=<span class="str">"ar"</span> dir=<span class="str">"rtl"</span>&gt;
 &lt;<span class="kw">html</span> lang=<span class="str">"en"</span> dir=<span class="str">"ltr"</span>&gt;
 
-<span class="com">/* CSS: numerals */</span>
 .tabular { font-variant-numeric: tabular-nums; }
-.latin-figs   { font-feature-settings: <span class="str">"lnum"</span> 1; }
-<span class="com">/* Arabic-Indic digits: type the codepoints (٠–٩) */</span></pre>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute p-3 border-t rule" x-text="t(
-          'استخدم \&quot;tnum\&quot; في الجداول علشان الأعمدة تترصّ صح.',
-          'Use \&quot;tnum\&quot; in tables so columns line up correctly.'
-        )"></div>
+<span class="com">/* Arabic-Indic digits: type ٠–٩ directly */</span></pre>
       </article>
-
     </div>
 
-    <!-- Minimal HTML template -->
-    <div class="mt-6 rule border">
-      <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em] flex items-center justify-between">
-        <span x-text="t('قالب HTML جاهز للنسخ','READY-TO-COPY HTML TEMPLATE')"></span>
-        <button class="rule border px-2 hover:bg-accent no-print"
-                @click="copy(document.getElementById('html-template').innerText, $event)"
-                x-text="t('نسخ','copy')"></button>
-      </header>
-      <pre id="html-template" class="code mono text-[12px]">&lt;!<span class="kw">doctype</span> html&gt;
+    <div class="mt-5">
+      <div class="flex items-center justify-between mb-2">
+        <span class="tag ink-soft" x-text="t('قالب HTML جاهز','Ready-to-copy HTML template')"></span>
+        <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy(document.getElementById('tmpl').innerText, $event)" x-text="t('نسخ','Copy')"></button>
+      </div>
+      <pre id="tmpl" class="code m-0">&lt;!<span class="kw">doctype</span> html&gt;
 &lt;<span class="kw">html</span> lang=<span class="str">"ar"</span> dir=<span class="str">"rtl"</span>&gt;
 &lt;<span class="kw">head</span>&gt;
   &lt;<span class="kw">meta</span> charset=<span class="str">"utf-8"</span>&gt;
   &lt;<span class="kw">meta</span> name=<span class="str">"viewport"</span> content=<span class="str">"width=device-width,initial-scale=1"</span>&gt;
-  &lt;<span class="kw">title</span>&gt;Hello Zad&lt;/<span class="kw">title</span>&gt;
-
-  <span class="com">&lt;!-- Option A: self-hosted (recommended) --&gt;</span>
   &lt;<span class="kw">link</span> rel=<span class="str">"preload"</span> as=<span class="str">"font"</span> type=<span class="str">"font/woff2"</span> crossorigin
         href=<span class="str">"zad-font/fonts/Zad-Regular.woff2"</span>&gt;
   &lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span> href=<span class="str">"zad-font/zad.css"</span>&gt;
-
-  <span class="com">&lt;!-- Option B: jsDelivr (no hosting) --&gt;</span>
-  <span class="com">&lt;!--
-  &lt;link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin&gt;
-  &lt;link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/zad.css"&gt;
-  --&gt;</span>
-
   &lt;<span class="kw">style</span>&gt;
-    body { font-family: <span class="kw">var</span>(--font-zad); margin:2rem; line-height:1.55; }
-    h1   { font-weight: 700; font-size: 2rem; }
-    .lead{ font-weight: 500; color:#525252; }
-    table{ font-variant-numeric: tabular-nums; }
+    body { font-family: <span class="kw">var</span>(--font-zad); line-height: 1.7; }
+    h1   { font-weight: 700; }
   &lt;/<span class="kw">style</span>&gt;
 &lt;/<span class="kw">head</span>&gt;
 &lt;<span class="kw">body</span>&gt;
   &lt;<span class="kw">h1</span>&gt;أهلًا بـ Zad&lt;/<span class="kw">h1</span>&gt;
-  &lt;<span class="kw">p</span> <span class="kw">class</span>=<span class="str">"lead"</span>&gt;خطٌّ عربيٌّ نظيفٌ للويب — مفتوحُ المصدر.&lt;/<span class="kw">p</span>&gt;
+  &lt;<span class="kw">p</span>&gt;خطٌّ عربيٌّ نظيفٌ للويب — مفتوحُ المصدر.&lt;/<span class="kw">p</span>&gt;
 &lt;/<span class="kw">body</span>&gt;
 &lt;/<span class="kw">html</span>&gt;</pre>
     </div>
@@ -659,257 +567,183 @@ body { font-family: <span class="kw">var</span>(--font-zad); }
 </section>
 
 <!-- ============ DOWNLOADS ============ -->
-<section id="downloads" class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 08</span> — <span x-text="t('التنزيلات','DOWNLOADS')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('نزّل الكِت كاملًا، أو وزنًا واحدًا.','Grab the whole kit, or just one weight.')"></h2>
+<section id="downloads" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12">
+    <div class="mb-7">
+      <div class="tag ink-soft num">§ 08 — <span x-text="t('التنزيلات','Downloads')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('الكِت كاملًا، أو وزنًا واحدًا.','The whole kit, or one weight.')"></h2>
     </div>
 
-    <!-- Bulk -->
-    <div class="grid md:grid-cols-3 gap-4 mb-6">
-      <a href="https://github.com/ahmedvnabil/zad-font/archive/refs/heads/main.zip"
-         class="rule border p-4 hover:bg-accent">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute" x-text="t('الكِت كاملًا','FULL KIT')"></div>
-        <div class="text-xl font-semibold mt-1">main.zip ↓</div>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute mt-1" x-text="t('5 أوزان × (woff2 + ttf) + CSS + رخصة','5 weights × (woff2 + ttf) + CSS + license')"></div>
+    <div class="grid md:grid-cols-3 gap-4 mb-6 no-print">
+      <a href="https://github.com/ahmedvnabil/zad-font/releases/latest" class="paper rounded-sm p-5 hover:opacity-90 transition">
+        <div class="tag soft" x-text="t('الكِت كاملًا','Full kit')"></div>
+        <div class="text-2xl font-semibold mt-1">↓ zip</div>
+        <div class="tag soft mt-1" x-text="t('5 أوزان + CSS + رخصة','5 weights + CSS + license')"></div>
       </a>
-      <a href="https://github.com/ahmedvnabil/zad-font/releases/latest"
-         class="rule border p-4 hover:bg-accent">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute" x-text="t('إصدار محدّد','RELEASE')"></div>
-        <div class="text-xl font-semibold mt-1">latest →</div>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute mt-1" x-text="t('نسخة موسومة بتاج (semver)','tagged release (semver)')"></div>
+      <a href="https://github.com/ahmedvnabil/zad-font" class="paper rounded-sm p-5 hover:opacity-90 transition">
+        <div class="tag soft" x-text="t('استنسخ','Clone')"></div>
+        <div class="text-2xl font-semibold mt-1">git clone →</div>
+        <div class="tag soft mt-1" x-text="t('للبناء من المصدر','rebuild from _src')"></div>
       </a>
-      <a href="https://github.com/ahmedvnabil/zad-font"
-         class="rule border p-4 hover:bg-accent">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute" x-text="t('استنسخ','CLONE')"></div>
-        <div class="text-xl font-semibold mt-1">git clone →</div>
-        <div class="mono text-[10px] uppercase tracking-[0.1em] mute mt-1" x-text="t('للمطوّرين اللي عايزين يبنوا','for devs rebuilding from _src')"></div>
+      <a href="https://github.com/ahmedvnabil/zad-font/releases/tag/v1.0.0" class="paper rounded-sm p-5 hover:opacity-90 transition">
+        <div class="tag soft">v1.0.0</div>
+        <div class="text-2xl font-semibold mt-1" x-text="t('الإصدار →','Release →')"></div>
+        <div class="tag soft mt-1" x-text="t('نسخة موسومة','tagged, semver')"></div>
       </a>
     </div>
 
-    <!-- Per-file table -->
-    <div class="rule border overflow-x-auto">
-      <table class="w-full mono text-[12px]">
-        <thead class="rule border-b">
-          <tr class="text-start">
-            <th class="p-2 text-start mute uppercase tracking-[0.1em]" x-text="t('وزن','Weight')"></th>
-            <th class="p-2 text-start mute uppercase tracking-[0.1em] num-stamp">class</th>
-            <th class="p-2 text-start mute uppercase tracking-[0.1em]">woff2 (web)</th>
-            <th class="p-2 text-start mute uppercase tracking-[0.1em]">ttf (desktop)</th>
-            <th class="p-2 text-start mute uppercase tracking-[0.1em]" x-text="t('CDN','CDN URL')"></th>
+    <div class="overflow-x-auto hair border-t">
+      <table class="w-full">
+        <thead>
+          <tr class="tag ink-soft hair border-b">
+            <th class="text-start py-2 pe-3 font-medium" x-text="t('وزن','Weight')"></th>
+            <th class="text-start py-2 pe-3 font-medium num">class</th>
+            <th class="text-start py-2 pe-3 font-medium">woff2</th>
+            <th class="text-start py-2 pe-3 font-medium">ttf</th>
+            <th class="text-start py-2 pe-3 font-medium no-print">CDN</th>
           </tr>
         </thead>
         <tbody>
           <template x-for="w in [
-            {name:'Light',    cls:300, woff2:'68.7 KB', ttf:'217.2 KB'},
-            {name:'Regular',  cls:400, woff2:'66.7 KB', ttf:'215.1 KB'},
-            {name:'Medium',   cls:500, woff2:'70.5 KB', ttf:'220.2 KB'},
-            {name:'SemiBold', cls:600, woff2:'71.0 KB', ttf:'222.4 KB'},
-            {name:'Bold',     cls:700, woff2:'68.3 KB', ttf:'224.3 KB'},
-          ]" :key="w.cls">
-            <tr class="rule border-t hover:soft">
-              <td class="p-2 ink"><span :style="`font-weight:${w.cls}`" x-text="w.name"></span></td>
-              <td class="p-2 mute num-stamp" x-text="w.cls"></td>
-              <td class="p-2"><a class="underline hover:bg-accent" :href="`fonts/Zad-${w.name}.woff2`" download>↓ Zad-<span x-text="w.name"></span>.woff2</a> <span class="mute" x-text="w.woff2"></span></td>
-              <td class="p-2"><a class="underline hover:bg-accent" :href="`fonts/Zad-${w.name}.ttf`" download>↓ Zad-<span x-text="w.name"></span>.ttf</a> <span class="mute" x-text="w.ttf"></span></td>
-              <td class="p-2">
-                <button class="rule border px-2 hover:bg-accent text-[11px] no-print"
-                        @click="copy(`https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/fonts/Zad-${w.name}.woff2`, $event)">
-                  <span x-text="t('نسخ رابط','copy URL')"></span>
-                </button>
-              </td>
+            {n:'Light',c:300,w2:'68.7 KB',tt:'217 KB'},{n:'Regular',c:400,w2:'66.7 KB',tt:'215 KB'},
+            {n:'Medium',c:500,w2:'70.5 KB',tt:'220 KB'},{n:'SemiBold',c:600,w2:'71.0 KB',tt:'222 KB'},
+            {n:'Bold',c:700,w2:'68.3 KB',tt:'224 KB'}]" :key="w.c">
+            <tr class="ladder">
+              <td class="py-3 pe-3 text-lg" :style="`font-weight:${w.c}`" x-text="w.n"></td>
+              <td class="py-3 pe-3 num ink-soft" x-text="w.c"></td>
+              <td class="py-3 pe-3"><a class="link" :href="`fonts/Zad-${w.n}.woff2`" download>↓ woff2</a> <span class="num ink-soft text-sm" x-text="w.w2"></span></td>
+              <td class="py-3 pe-3"><a class="link" :href="`fonts/Zad-${w.n}.ttf`" download>↓ ttf</a> <span class="num ink-soft text-sm" x-text="w.tt"></span></td>
+              <td class="py-3 pe-3 no-print"><button class="btn btn-ghost !py-1 !px-2 tag" @click="copy(`https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/fonts/Zad-${w.n}.woff2`, $event)" x-text="t('نسخ رابط','copy URL')"></button></td>
             </tr>
           </template>
         </tbody>
       </table>
     </div>
-
-    <div class="mono text-[10px] uppercase tracking-[0.1em] mute mt-3" x-text="t(
-      'كل ملفات الـwoff2 + ttf مضمّنة في فولدر fonts/ في الريبو وعلى jsDelivr.',
-      'All woff2 + ttf files ship inside fonts/ in this repo and on jsDelivr.'
-    )"></div>
   </div>
 </section>
 
 <!-- ============ FOR DESIGNERS ============ -->
-<section id="designers" class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 09</span> — <span x-text="t('للمصمّمين','FOR DESIGNERS')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('ركّبه على سطح المكتب وفي فيجما.','Install on desktop and use in Figma.')"></h2>
+<section id="designers" class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12">
+    <div class="mb-7">
+      <div class="tag ink-soft num">§ 09 — <span x-text="t('للمصمّمين','For designers')"></span></div>
+      <h2 class="text-3xl md:text-5xl font-semibold mt-2" x-text="t('ركّبه على سطح المكتب وفي فيجما.','Install on desktop and use in Figma.')"></h2>
     </div>
-
-    <div class="grid md:grid-cols-3 gap-4">
-
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em]">macOS</header>
-        <ol class="p-4 space-y-2 text-[14px] leading-relaxed">
-          <li><span class="mute">1.</span> <span x-text="t('نزّل ملفات','Download the')"></span> <code class="mono soft px-1">Zad-*.ttf</code> <span x-text="t('من فولدر','from')"></span> <a class="underline" href="fonts/">/fonts</a>.</li>
-          <li><span class="mute">2.</span> <span x-text="t('دبل-كليك على كل ملف ttf → اضغط','Double-click each .ttf → click')"></span> <b>Install Font</b>.</li>
-          <li><span class="mute">3.</span> <span x-text="t('أو اسحبهم لتطبيق','Or drag them into')"></span> <b>Font Book</b>.</li>
-          <li><span class="mute">4.</span> <span x-text="t('هتلاقي العائلة في أي تطبيق باسم','The family appears in any app as')"></span> <b>Zad</b>.</li>
+    <div class="grid md:grid-cols-3 gap-5">
+      <article class="paper rounded-sm p-6">
+        <div class="text-xl font-semibold mb-3">macOS</div>
+        <ol class="space-y-2 leading-relaxed">
+          <li><span class="soft num">1.</span> <span x-text="t('نزّل ملفات','Download the')"></span> <span class="num">Zad-*.ttf</span></li>
+          <li><span class="soft num">2.</span> <span x-text="t('دبل-كليك → Install Font','Double-click → Install Font')"></span></li>
+          <li><span class="soft num">3.</span> <span x-text="t('أو اسحبها لـ Font Book','Or drag into Font Book')"></span></li>
+          <li><span class="soft num">4.</span> <span x-text="t('تظهر العائلة باسم','Appears as')"></span> <b>Zad</b></li>
         </ol>
       </article>
-
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em]">Windows</header>
-        <ol class="p-4 space-y-2 text-[14px] leading-relaxed">
-          <li><span class="mute">1.</span> <span x-text="t('نزّل ملفات','Download the')"></span> <code class="mono soft px-1">Zad-*.ttf</code>.</li>
-          <li><span class="mute">2.</span> <span x-text="t('اختار الملفات كلها، كليك يمين →','Select all → right-click →')"></span> <b>Install for all users</b>.</li>
-          <li><span class="mute">3.</span> <span x-text="t('أو افتح','Or open')"></span> <b>Settings → Fonts</b> <span x-text="t('واسحبهم جوّاها','and drop them in')"></span>.</li>
+      <article class="paper rounded-sm p-6">
+        <div class="text-xl font-semibold mb-3">Windows</div>
+        <ol class="space-y-2 leading-relaxed">
+          <li><span class="soft num">1.</span> <span x-text="t('نزّل','Download')"></span> <span class="num">Zad-*.ttf</span></li>
+          <li><span class="soft num">2.</span> <span x-text="t('اختر الكل → كليك يمين → Install for all users','Select all → right-click → Install for all users')"></span></li>
+          <li><span class="soft num">3.</span> <span x-text="t('أو Settings → Fonts واسحبها','Or Settings → Fonts, drop them')"></span></li>
         </ol>
       </article>
-
-      <article class="rule border">
-        <header class="rule border-b p-3 mono text-[11px] uppercase tracking-[0.12em]">Figma</header>
-        <ol class="p-4 space-y-2 text-[14px] leading-relaxed">
-          <li><span class="mute">1.</span> <span x-text="t('نصّب','Install')"></span> <a class="underline" href="https://www.figma.com/downloads/font-installers/">Figma Font Installer</a>.</li>
-          <li><span class="mute">2.</span> <span x-text="t('نصّب Zad على سطح المكتب (الخطوات اللي فوق).','Install Zad on your desktop (steps above).')"></span></li>
-          <li><span class="mute">3.</span> <span x-text="t('في Figma، اختار النص → في لوحة الخط ابحث عن','In Figma, select text → in the font panel search')"></span> <b>Zad</b>.</li>
-          <li><span class="mute">4.</span> <span x-text="t('للأوزان: استخدم Style dropdown (Light / Regular / Medium / SemiBold / Bold).','For weights: use Style dropdown (Light / Regular / Medium / SemiBold / Bold).')"></span></li>
+      <article class="paper rounded-sm p-6">
+        <div class="text-xl font-semibold mb-3">Figma</div>
+        <ol class="space-y-2 leading-relaxed">
+          <li><span class="soft num">1.</span> <a class="link" href="https://www.figma.com/downloads/font-installers/">Figma Font Installer</a></li>
+          <li><span class="soft num">2.</span> <span x-text="t('نصّب Zad على سطح المكتب','Install Zad on desktop')"></span></li>
+          <li><span class="soft num">3.</span> <span x-text="t('في Figma ابحث عن','In Figma search')"></span> <b>Zad</b></li>
+          <li><span class="soft num">4.</span> <span x-text="t('الأوزان من Style dropdown','Weights via Style dropdown')"></span></li>
         </ol>
-      </article>
-
-    </div>
-
-    <!-- Adobe / Sketch -->
-    <div class="mt-4 grid md:grid-cols-2 gap-4">
-      <article class="rule border p-4">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-1">Adobe CC / Sketch / Affinity</div>
-        <p class="text-[14px] leading-relaxed" x-text="t(
-          'مجرد ما تنصّب الـttf على النظام، التطبيقات دي بتلاقيه تلقائيًا. مفيش خطوة إضافية.',
-          'Once the .ttf is installed system-wide, these apps pick it up automatically. No extra step.'
-        )"></p>
-      </article>
-      <article class="rule border p-4">
-        <div class="mono text-[11px] uppercase tracking-[0.12em] mute mb-1" x-text="t('استخدام في الـUI Kits','Use in UI Kits')"></div>
-        <p class="text-[14px] leading-relaxed" x-text="t(
-          'في كومبوننتس فيجما الجاهزة (mui, shadcn, eldenring): استبدل font family في Local styles ب \&quot;Zad\&quot; — الباقي بيشتغل من غير ما تلمس وزن.',
-          'In ready-made Figma component kits: replace the font family in Local styles with \&quot;Zad\&quot; — the rest works without touching individual weights.'
-        )"></p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ============ SPECIMEN PARAGRAPH ============ -->
-<section class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-12 grid md:grid-cols-2 gap-8">
+<!-- ============ SPEC + LICENSE ============ -->
+<section class="hair border-b">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-12 grid lg:grid-cols-2 gap-12">
     <div>
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute mb-3"><span class="num-stamp">§ 10</span> — <span x-text="t('فقرة عرض','SPECIMEN')"></span></div>
-      <p dir="rtl" lang="ar" class="text-lg md:text-2xl leading-relaxed" style="font-weight:400">
-        زادٌ خطٌّ عربيٌّ نظيفٌ، يُريحُ العينَ في الجداولِ ولوحاتِ المراقبةِ، ويصلحُ
-        للنصِّ الطويلِ في الكتبِ والتقاريرِ. صُنِعَ ليكونَ أداةً عمليّةً قبلَ أن يكونَ
-        زينةً، وليبقى مفتوحاً للجميعِ تحتَ رُخصةٍ حُرّةٍ. تقدرُ تستخدمُه في مشاريعِك
-        الشخصيّةِ والتجاريّةِ بدونِ قيد. — <span style="font-weight:500">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩</span>
-      </p>
-    </div>
-    <div>
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute mb-3"><span class="num-stamp">§ 10b</span> — LATIN</div>
-      <p dir="ltr" lang="en" class="text-lg md:text-2xl leading-relaxed" style="font-weight:400">
-        Zad is a calm, operational Arabic webfont — comfortable in dense tables and
-        dashboards, and patient in long-form reading. It was made to work first and
-        decorate second, and it stays open to everyone under a free license.
-        Use it in personal and commercial projects without restriction. — <span style="font-weight:500">0 1 2 3 4 5 6 7 8 9</span>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TECH / SPEC SHEET ============ -->
-<section class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10">
-    <div class="mb-6">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 11</span> — <span x-text="t('ورقة المواصفات','SPEC SHEET')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1" x-text="t('التفاصيل التقنية.','The technical bits.')"></h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-x-12 mono text-[12px]">
-      <div class="grid-rows-info">
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('عائلة','FAMILY')"></span><span class="ink">Zad</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('المصدر','SOURCE')"></span><span class="ink">IBM Plex Sans Arabic</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('الترخيص','LICENSE')"></span><span class="ink">SIL OFL 1.1</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('الفئة','CLASS')"></span><span class="ink">Sans-serif / Arabic+Latin</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('الأوزان','WEIGHTS')"></span><span class="ink num-stamp">300 · 400 · 500 · 600 · 700</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('الصِّيغ','FORMATS')"></span><span class="ink">woff2 (web) · ttf (desktop)</span></div>
+      <div class="tag ink-soft num mb-2">§ 10 — <span x-text="t('ورقةُ المواصفات','Spec sheet')"></span></div>
+      <div class="hair border-t">
+        <template x-for="r in [
+          {k_ar:'العائلة',k_en:'Family',v:'Zad'},{k_ar:'المصدر',k_en:'Source',v:'IBM Plex Sans Arabic'},
+          {k_ar:'الفئة',k_en:'Class',v:'Sans · AR + LAT'},{k_ar:'الأوزان',k_en:'Weights',v:'300 · 400 · 500 · 600 · 700',num:true},
+          {k_ar:'المحارف',k_en:'Glyphs',v:'1,657',num:true},{k_ar:'التشكيل',k_en:'Shaping',v:'HarfBuzz ✓'},
+          {k_ar:'فحص الجودة',k_en:'QA',v:'0 FAIL · 0 FATAL'},{k_ar:'إعادة الإنتاج',k_en:'Reproducible',v:'python build.py'},
+          {k_ar:'المؤلّف',k_en:'Maintainer',v:'Ahmed Morsy'}]" :key="r.k_en">
+          <div class="hair border-b flex items-baseline justify-between gap-4 py-2.5">
+            <span class="tag ink-soft" x-text="t(r.k_ar,r.k_en)"></span>
+            <span :class="r.num ? 'num' : ''" class="font-medium start" x-text="r.v"></span>
+          </div>
+        </template>
       </div>
-      <div class="grid-rows-info">
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('عدد المحارف','GLYPHS')"></span><span class="ink num-stamp">1,657</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('وزن الملف','FILE WEIGHT')"></span><span class="ink num-stamp">66.7–71.0 KB (woff2)</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('تشكيل + وصل','SHAPING')"></span><span class="ink">✓ <span x-text="t('متحقَّق منه (HarfBuzz)','verified (HarfBuzz)')"></span></span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('فحص الجودة','QA')"></span><span class="ink">FontBakery: 0 FAIL · 0 FATAL · 1 WARN</span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('قابل لإعادة الإنتاج','REPRODUCIBLE')"></span><span class="ink">✓ <code>python build.py</code></span></div>
-        <div class="py-3 flex justify-between gap-3"><span class="mute uppercase tracking-[0.1em]" x-text="t('المُؤلِّف','MAINTAINER')"></span><span class="ink">Ahmed Morsy</span></div>
+    </div>
+
+    <div>
+      <div class="tag ink-soft num mb-2">§ 11 — <span x-text="t('الرخصة','License')"></span></div>
+      <h3 class="text-3xl font-semibold mb-1">SIL OFL 1.1</h3>
+      <p class="ink-soft mb-5" x-text="t('مجاني للجميع — شخصي وتجاري.','Free for all — personal & commercial.')"></p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="paper rounded-sm p-5">
+          <div class="tag soft mb-2" x-text="t('مسموح','You may')"></div>
+          <ul class="space-y-1.5 text-[15px]">
+            <li>✓ <span x-text="t('أي عدد مواقع، تجاري أو شخصي.','Any number of sites, commercial or personal.')"></span></li>
+            <li>✓ <span x-text="t('عدّل واشتقّ وادمج.','Modify, derive, bundle.')"></span></li>
+            <li>✓ <span x-text="t('وزّع مع نسخة OFL.','Redistribute with OFL.')"></span></li>
+          </ul>
+        </div>
+        <div class="paper rounded-sm p-5">
+          <div class="tag soft mb-2" x-text="t('ممنوع','You may not')"></div>
+          <ul class="space-y-1.5 text-[15px]">
+            <li>✗ <span x-text="t('تبيع الخط لوحده.','Sell the font alone.')"></span></li>
+            <li>✗ <span x-text="t('تستخدم الاسم المحجوز “Plex”.','Use the Reserved Name “Plex”.')"></span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ LICENSE ============ -->
-<section class="rule border-b">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-10 grid md:grid-cols-12 gap-6">
-    <div class="md:col-span-3">
-      <div class="mono text-[11px] uppercase tracking-[0.15em] mute"><span class="num-stamp">§ 12</span> — <span x-text="t('الرخصة','LICENSE')"></span></div>
-      <h2 class="text-3xl md:text-4xl font-semibold mt-1">SIL OFL 1.1</h2>
-      <div class="mt-3 mono text-[11px] uppercase tracking-[0.1em] mute" x-text="t('مجاني للجميع — شخصي وتجاري.','Free for all — personal & commercial.')"></div>
+<!-- ============ FOOTER — ink-drench inversion ============ -->
+<footer class="panel">
+  <div class="mx-auto max-w-[1320px] px-5 md:px-8 py-14">
+    <div class="text-6xl md:text-8xl font-bold" style="color:var(--on-panel)">
+      <span x-show="lang==='ar'" class="disp-ar">زاد<span style="color:#f0a94b">.</span></span>
+      <span x-show="lang==='en'" x-cloak class="disp-en">Zad<span style="color:#f0a94b">.</span></span>
     </div>
-    <div class="md:col-span-9 grid sm:grid-cols-2 gap-4">
-      <div class="rule border p-4">
-        <div class="mono text-[11px] uppercase tracking-[0.1em] mute mb-2" x-text="t('مسموح','YOU MAY')"></div>
+    <div class="grid md:grid-cols-3 gap-8 mt-10">
+      <div class="soft leading-relaxed">
+        <div x-text="t('خطٌّ عربيٌّ مفتوحُ المصدر · 2026','Open-source Arabic webfont · 2026')"></div>
+        <div class="mt-2" x-text="t('مبنيٌّ على IBM Plex Sans Arabic. الاسم “Zad” لا صلةَ له بالاسم المحجوز “Plex”.','Built on IBM Plex Sans Arabic. “Zad” does not contain the Reserved Name “Plex”.')"></div>
+      </div>
+      <div>
+        <div class="tag soft mb-3" x-text="t('ملفات','Files')"></div>
         <ul class="space-y-1.5">
-          <li>✓ <span x-text="t('استخدمه في أي عدد مواقع — شخصية أو تجارية.','Use it on any number of sites — personal or commercial.')"></span></li>
-          <li>✓ <span x-text="t('عدّله، اشتقّ منه، ضمّه في منتجاتك.','Modify, derive, bundle into your products.')"></span></li>
-          <li>✓ <span x-text="t('وزّعه — مع نسخة من OFL.','Redistribute — with a copy of OFL.')"></span></li>
+          <li><a class="link" href="README.md">README</a></li>
+          <li><a class="link" href="OFL.txt">OFL.txt</a></li>
+          <li><a class="link" href="FONTLOG.txt">FONTLOG.txt</a></li>
+          <li><a class="link" href="QA-REPORT.md">QA-REPORT.md</a></li>
         </ul>
       </div>
-      <div class="rule border p-4">
-        <div class="mono text-[11px] uppercase tracking-[0.1em] mute mb-2" x-text="t('ممنوع','YOU MAY NOT')"></div>
+      <div>
+        <div class="tag soft mb-3" x-text="t('روابط','Links')"></div>
         <ul class="space-y-1.5">
-          <li>✗ <span x-text="t('تبيع الفونت لوحده.','Sell the font on its own.')"></span></li>
-          <li>✗ <span x-text="t('تستخدم الاسم المحجوز \"Plex\" في مشتقاتك.','Use the Reserved Name “Plex” in derivatives.')"></span></li>
+          <li><a class="link" href="https://github.com/ahmedvnabil/zad-font">GitHub repo</a></li>
+          <li><a class="link" href="https://github.com/ahmedvnabil/zad-font/releases">Releases</a></li>
+          <li><a class="link" href="https://openfontlicense.org">openfontlicense.org</a></li>
         </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="rule border-b-0">
-  <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-8 grid md:grid-cols-3 gap-6 mono text-[11px] uppercase tracking-[0.1em] mute">
-    <div>
-      <div class="text-base text-current ink font-semibold mb-1">ZAD<span class="accent">.</span></div>
-      <div x-text="t('خط عربي مفتوح المصدر · 2026','Open-source Arabic webfont · 2026')"></div>
-      <div class="mt-1" x-text="t('مبنيٌّ على IBM Plex Sans Arabic. الاسم “Zad” ليس له صلة بـ “Plex”.','Built on IBM Plex Sans Arabic. “Zad” does not contain the Reserved Name “Plex”.')"></div>
-    </div>
-    <div>
-      <div class="ink mb-2" x-text="t('ملفات','FILES')"></div>
-      <ul class="space-y-1 normal-case">
-        <li><a class="underline" href="README.md">README</a></li>
-        <li><a class="underline" href="OFL.txt">OFL.txt</a></li>
-        <li><a class="underline" href="FONTLOG.txt">FONTLOG.txt</a></li>
-        <li><a class="underline" href="QA-REPORT.md">QA-REPORT.md</a></li>
-        <li><a class="underline" href="zad.css">zad.css</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="ink mb-2" x-text="t('روابط','LINKS')"></div>
-      <ul class="space-y-1 normal-case">
-        <li><a class="underline" href="https://github.com/ahmedvnabil/zad-font">github.com/ahmedvnabil/zad-font</a></li>
-        <li><a class="underline" href="https://github.com/ahmedvnabil/zad-font/releases">Releases</a></li>
-        <li><a class="underline" href="https://openfontlicense.org">openfontlicense.org</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="rule border-t">
-    <div class="mx-auto max-w-[1400px] px-4 md:px-8 py-4 flex flex-col md:flex-row gap-2 md:items-center md:justify-between mono text-[11px] uppercase tracking-[0.12em] mute">
-      <div>© 2026 Ahmed Morsy · <span x-text="t('مرخّص تحت','licensed under')"></span> SIL OFL 1.1</div>
-      <div>Zad v1.0 · <span x-text="t('بُنِيَ في','built in')"></span> Cairo / Dubai · <span x-text="t('بُني بـ','set in')"></span> Zad</div>
+    <div class="mt-10 pt-5 flex flex-col md:flex-row gap-2 md:items-center md:justify-between tag soft" style="border-top:1px solid var(--panel-line)">
+      <div>© 2026 Ahmed Morsy · SIL OFL 1.1</div>
+      <div x-text="t('بُنِيَ في القاهرة / دبي · ومكتوبٌ بـ Zad','Built in Cairo / Dubai · set in Zad')"></div>
     </div>
   </div>
 </footer>
 
 </main>
+
+<style>[x-cloak]{display:none!important;}</style>
 </body>
 </html>

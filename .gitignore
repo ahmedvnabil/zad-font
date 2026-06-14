@@ -2,10 +2,13 @@
 .DS_Store
 Thumbs.db
 
-# Editors
+# Editors / local tooling
 .vscode/
 .idea/
 *.swp
+.claude/
+PRODUCT.md
+DESIGN.md
 
 # Python
 __pycache__/
