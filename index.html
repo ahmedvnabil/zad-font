@@ -56,10 +56,12 @@
   html[dir=rtl] .tag{ letter-spacing:normal; text-transform:none; }
   .num{ font-feature-settings:"tnum" 1; font-variant-numeric:tabular-nums; }
 
-  /* Arabic must never carry letter-spacing (it severs the joins). Latin display may track tight. */
-  .disp{ line-height:.86; font-weight:700; color:var(--display); }
-  .disp-ar{ letter-spacing:normal; }
-  .disp-en{ letter-spacing:-.045em; }
+  /* Arabic must never carry letter-spacing (it severs the joins). Latin display may track tight.
+     Arabic display needs a taller line-box than Latin — deep descenders (ز ر و ج…) overlap
+     the next line if line-height is < ~1.2. Values are em-based so they scale with the clamp. */
+  .disp{ font-weight:700; color:var(--display); }
+  .disp-ar{ letter-spacing:normal; line-height:1.18; padding-block-end:.06em; }
+  .disp-en{ letter-spacing:-.045em; line-height:.9; }
 
   .hair{ border-color:var(--line); }
   .hair-strong{ border-color:var(--line-strong); }
