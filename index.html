@@ -5,7 +5,7 @@
 <title>Zad — خط عربي مفتوح المصدر للويب · A free Arabic web font</title>
 <meta name="description" content="Zad — a clean, open-source Arabic web font. 5 weights, woff2, OFL 1.1. خط زاد العربي للويب — 5 أوزان، مفتوح المصدر تحت رخصة SIL OFL.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#e2972b">
+<meta name="theme-color" content="#eebb63">
 <meta property="og:title" content="Zad — Open-source Arabic web font">
 <meta property="og:description" content="A clean Arabic web font, set in itself. 5 weights, woff2, OFL 1.1.">
 <meta property="og:type" content="website">
@@ -25,13 +25,13 @@
   /* ===== Saffron Drench system — the whole page is set in Zad ===== */
   :root{
     --font-zad:"Zad","Segoe UI",system-ui,-apple-system,"Noto Sans Arabic",sans-serif;
-    --bg:#e2972b; --bg-raised:#e8a23b;
-    --ink:#1c1404; --ink-soft:#6e521a; --line:rgba(28,20,4,.20); --line-strong:rgba(28,20,4,.42);
-    --display:#1c1404;
-    --panel:#1b1405; --panel-raised:#231a08; --on-panel:#f6efdf; --on-panel-soft:#c3b48f; --panel-line:rgba(246,239,223,.16);
-    --paper:#f7f0e1; --paper-ink:#241a08; --paper-soft:#6e5a32; --paper-line:rgba(36,26,8,.14);
-    --accent:#8f2d07;
-    --btn-bg:#1c1404; --btn-fg:#f3ad4e; --btn-bg-hover:#33260c;
+    --bg:#eebb63; --bg-raised:#f3c87d;
+    --ink:#241a08; --ink-soft:#7a5e22; --line:rgba(36,26,8,.18); --line-strong:rgba(36,26,8,.38);
+    --display:#241a08;
+    --panel:#1b1405; --panel-raised:#231a08; --on-panel:#f6efdf; --on-panel-soft:#cdbe98; --panel-line:rgba(246,239,223,.16);
+    --paper:#fbf6ec; --paper-ink:#241a08; --paper-soft:#6e5a32; --paper-line:rgba(36,26,8,.13);
+    --accent:#a8330a;
+    --btn-bg:#241a08; --btn-fg:#f5b657; --btn-bg-hover:#3a2b10;
   }
   html.dark{
     --bg:#15100a; --bg-raised:#1c160c;
@@ -81,6 +81,10 @@
   .btn-ghost:hover{ background:color-mix(in oklab, var(--ink) 9%, transparent); }
   .link{ color:var(--accent); text-underline-offset:3px; }
   .link:hover{ text-decoration:underline; }
+  /* The footer is the dark inversion panel — its links/text need a light, on-brand
+     color, not the dark oxblood accent (which is near-invisible on deep ink). */
+  .panel a.link, .panel .link{ color:#f3bd66; }
+  .panel a.link:hover, .panel .link:hover{ color:#f8d28c; }
 
   /* Code blocks — set in Zad (tabular figures), on a deep ink panel for legibility.
      Always LTR + left-aligned even inside the RTL page, so code reads correctly. */
@@ -143,7 +147,7 @@
       toggleTheme(){
         this.theme = this.theme==='light' ? 'dark' : 'light';
         document.documentElement.classList.toggle('dark', this.theme==='dark');
-        const m=document.querySelector('meta[name=theme-color]'); if(m) m.content = this.theme==='dark' ? '#15100a' : '#e2972b';
+        const m=document.querySelector('meta[name=theme-color]'); if(m) m.content = this.theme==='dark' ? '#15100a' : '#eebb63';
       },
       tester:{ weight:500, size:80, align:'right',
         text:'الخطُّ زادٌ للمسافرِ، ولغةُ العملِ للناس.\nZad — a clean Arabic web font for dense interfaces.' },
