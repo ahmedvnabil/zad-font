@@ -1,26 +1,41 @@
 FONTLOG for Zad
 ================
 
-Zad is the Gulf Type Foundry's UI workhorse — a sans-serif designed for
-dense, operational interfaces in both Arabic and Latin. It anchors the
-foundry's own studio and website.
+Zad is a renamed, lightweight web build derived from IBM Plex Sans Arabic
+(SIL Open Font License 1.1). It keeps Arabic joining, ligatures, and
+mark positioning intact, ships five static weights for the web (woff2 +
+ttf), and does not use IBM's Reserved Font Name "Plex".
+
+Maintainer of this derivative: Ahmed Morsy (GitHub @ahmedvnabil).
+Upstream designers: Mike Abbink, Paul van der Laan, Pieter van Rosmalen,
+Wael Morcos, Khajak Apelian (Bold Monday / IBM Corp.).
 
 ChangeLog
 ---------
 
-1. 2026-06-12 — Direction-C identity pass
-   Zad becomes the foundry's default UI face. Tightened metrics for dense
-   tables, refined Arabic letterforms, locked the weight ladder
-   (Regular 400, Medium 500, Bold 700).
+3. 2026-10-21 — Metadata accuracy + build hygiene
+   - Documented Zad honestly as an OFL derivative of IBM Plex Sans Arabic
+     (5 weights 300–700), not an original foundry design.
+   - build.py: normalised family underlineThickness/Position; stopped
+     writing Macintosh name records (matching upstream).
+   - Refreshed FontBakery QA on all 5 weights; remaining FAILs/WARNs are
+     inherited from IBM Plex Sans Arabic.
+   - Added MCP server docs for AI-agent install/preview/generation tools.
 
-2. 2026-06-04 — Initial release of Zad
-   First public version. Arabic + Latin coverage. Released under SIL
-   Open Font License 1.1.
+2. 2026-06-14 — Five-weight web kit
+   Expanded the shipped ladder to Light 300, Regular 400, Medium 500,
+   SemiBold 600, Bold 700. Reproducible build from `_src/` via build.py.
+   FontBakery universal run recorded in qa.json.
+
+1. 2026-06-12 — Initial public release
+   First public Zad kit: renamed/subset derivative of IBM Plex Sans
+   Arabic under SIL OFL 1.1. Arabic + Latin coverage.
 
 Acknowledgements
 ----------------
 
-Designed by the Gulf Type Foundry.
-
-Released under the SIL Open Font License 1.1 — see OFL.txt or
-https://openfontlicense.org for the full text.
+Zad is based on IBM Plex Sans Arabic © IBM Corp., designed by Bold Monday
+with Arabic contributions from Wael Morcos and Khajak Apelian. Distributed
+under the SIL Open Font License 1.1 — see OFL.txt or
+https://openfontlicense.org for the full text. The Reserved Font Name
+"Plex" is not used in this derivative.
