@@ -1,37 +1,57 @@
 # Zad — FontBakery QA report
 
-Tool: FontBakery 1.1.0 · profile: `check-opentype` · date: 12 June 2026
-Targets: 3 weights (`fonts/Zad-{Regular,Medium,Bold}.ttf`).
+Tool: FontBakery 1.1.0 · profile: `universal` · date: 21 October 2026  
+Targets: 5 weights (`fonts/Zad-{Light,Regular,Medium,SemiBold,Bold}.ttf`).
+
+Machine-readable summary: [`qa.json`](qa.json).
 
 ## Result
 
-| Target          | FATAL | FAIL | WARN | PASS |
-| --------------- | :---: | :--: | :--: | :--: |
-| 3 weights       |   0   |  0   |  1   |  88  |
+| Target    | FATAL | FAIL | WARN | PASS | SKIP |
+| --------- | :---: | :--: | :--: | :--: | :--: |
+| 5 weights |   0   |  15  |  30  | 355  | 172  |
 
-**No FAIL or FATAL.**
+> Earlier docs that claimed **0 FAIL** referred to an older 3-weight
+> `check-opentype` run. The numbers above are the current 5-weight
+> `universal` profile results.
 
-### Fix applied
+### FAIL breakdown (15 = 3 checks × 5 weights)
+
+| Check | Count | Source |
+| ----- | :---: | ------ |
+| `arabic_spacing_symbols` | 5 | Inherited from IBM Plex Sans Arabic (GDEF marks U+FBB2… with advance width) |
+| `case_mapping` | 5 | Inherited — missing case pairs (e.g. U+0110↔U+0111) already absent upstream |
+| `smart_dropout` | 5 | Inherited hinting / prep from IBM Plex masters |
+
+### Fixes applied in this kit (build.py)
 
 - `opentype/family/underline_thickness` — normalised `post.underlineThickness`
-  / `underlinePosition` to be identical across the three weights (the upstream
-  IBM Plex masters used slightly different values per weight).
+  / `underlinePosition` to Regular’s values (60 / −95) across all five weights.
+- `no_mac_entries` — stopped writing Macintosh (platform 1) name records so the
+  derivative matches upstream (which ships Windows-only names).
 
-### Remaining WARN (upstream)
+### Remaining WARN (30 = 6 checks × 5 weights, all upstream)
 
-- `opentype/gdef_non_mark_chars` — a few glyphs are classed as marks in the
-  GDEF table while having advance width. This is inherited from **IBM Plex Sans
-  Arabic** (Zad's source) and does not affect shaping in practice; resolving it
-  would require editing the upstream GDEF.
+- `opentype/gdef_non_mark_chars`
+- `arabic_high_hamza`
+- `contour_count`
+- `ligature_carets`
+- `soft_hyphen`
+- `valid_glyphnames`
 
-### Environmental note
+None of these affect Arabic joining or mark positioning in practice. Resolving
+them would mean editing IBM Plex outlines / GDEF, which this lightweight
+rename/subset kit deliberately does not do.
 
-`opentype/italic_angle` ERROR is a missing-dependency artifact in this sandbox
-(`beziers` / `opentype-sanitizer` unavailable), not a font defect.
+### Shaping
+
+Arabic joining, lam-alef ligatures, and tashkeel positions were verified with
+HarfBuzz against the previous kit binaries after the metadata rebuild — glyph
+ids, advances, and offsets match.
 
 ## Reproduce
 
 ```bash
 pip install fontbakery
-fontbakery check-opentype fonts/Zad-*.ttf
+fontbakery check-universal fonts/Zad-*.ttf
 ```

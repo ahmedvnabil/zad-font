@@ -1,17 +1,29 @@
 {
   "schema_version": 1,
   "candidate": {
-    "path": "families/zad/fonts/Zad-Regular.ttf",
+    "path": "fonts/Zad-Regular.ttf",
     "family": "Zad",
     "subfamily": "Regular",
     "psname": "Zad-Regular",
     "glyph_count": 1657
   },
-  "upstream": null,
-  "design_originality_pct": 100.0,
+  "upstream": {
+    "family": "IBM Plex Sans Arabic",
+    "source": "https://github.com/IBM/plex",
+    "license": "SIL OFL 1.1",
+    "reserved_font_name": "Plex",
+    "local_path": "_src/IBMPlexSansArabic-Regular.ttf"
+  },
+  "design_originality_pct": 0.0,
   "branding_originality_pct": 100.0,
-  "verdict": "original",
-  "verdict_text_en": "Original design — substantially new work; minimal or no inheritance.",
-  "verdict_text_ar": "تصميمٌ أصليٌّ — عملٌ جديدٌ إلى حدٍّ كبير، احتفاظ بسيط أو منعدم.",
-  "dimensions": {}
+  "verdict": "derivative",
+  "verdict_text_en": "OFL derivative — renamed/subset build of IBM Plex Sans Arabic; outlines and shaping inherited. Branding name \"Zad\" is original and does not use the Reserved Font Name \"Plex\".",
+  "verdict_text_ar": "مشتقٌّ تحت رخصة OFL — بناءٌ مُعاد تسميته ومقصوص من IBM Plex Sans Arabic؛ الأشكال والتشكيل موروثان. اسم العلامة «Zad» أصلي ولا يستخدم الاسم المحجوز «Plex».",
+  "dimensions": {
+    "outlines": "inherited",
+    "shaping_tables": "inherited",
+    "name_table": "rewritten to Zad with OFL attribution",
+    "subset": "Arabic + Latin + digits + punctuation",
+    "weights_shipped": [300, 400, 500, 600, 700]
+  }
 }
