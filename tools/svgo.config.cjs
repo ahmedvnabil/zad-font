@@ -1,0 +1,1 @@
+module.exports = { multipass: true, floatPrecision: 1, plugins: [{ name: "preset-default", params: { overrides: { inlineStyles: false, mergePaths: false, removeHiddenElems: false, collapseGroups: false, removeTitle: false, removeViewBox: false } } }] };
