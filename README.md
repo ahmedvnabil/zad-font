@@ -12,7 +12,7 @@
   <a href="#mcp-server--للـai-agents"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-black?style=flat-square"></a>
 </p>
 
-**Live landing page →** https://zadfont.zad.tools/
+**Live landing page →** https://zadstack.github.io/zad-font/
 
 ---
 
