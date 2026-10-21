@@ -18,8 +18,13 @@ ChangeLog
      (5 weights 300–700), not an original foundry design.
    - build.py: normalised family underlineThickness/Position; stopped
      writing Macintosh name records (matching upstream).
-   - Refreshed FontBakery QA on all 5 weights; remaining FAILs/WARNs are
-     inherited from IBM Plex Sans Arabic.
+   - build.py: added TrueType smart dropout control to 'prep'
+     (FontBakery smart_dropout); outlines, metrics and HarfBuzz shaping
+     verified identical to the previous build.
+   - FontBakery 1.1.0 universal, 5 weights: 0 FATAL, 10 FAIL, 30 WARN,
+     360 PASS (was 15 FAIL). Remaining FAILs (arabic_spacing_symbols,
+     case_mapping) and all WARNs are inherited from IBM Plex Sans Arabic
+     and need design changes to fix.
    - Added MCP server docs for AI-agent install/preview/generation tools.
 
 2. 2026-06-14 — Five-weight web kit

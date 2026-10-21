@@ -8,7 +8,7 @@
   <img alt="Weights: 5" src="https://img.shields.io/badge/weights-5-black?style=flat-square">
   <img alt="Format: woff2 + ttf" src="https://img.shields.io/badge/format-woff2%20%2B%20ttf-black?style=flat-square">
   <img alt="Glyphs: 1652–1657" src="https://img.shields.io/badge/glyphs-1%2C652%E2%80%931%2C657-black?style=flat-square">
-  <a href="QA-REPORT.md"><img alt="FontBakery: 0 FATAL · 15 FAIL (inherited)" src="https://img.shields.io/badge/FontBakery-0%20FATAL%20%C2%B7%2015%20FAIL%20(inherited)-orange?style=flat-square"></a>
+  <a href="QA-REPORT.md"><img alt="FontBakery: 0 FATAL · 10 FAIL (inherited)" src="https://img.shields.io/badge/FontBakery-0%20FATAL%20%C2%B7%2010%20FAIL%20(inherited)-orange?style=flat-square"></a>
   <a href="#mcp-server--للـai-agents"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-black?style=flat-square"></a>
 </p>
 
@@ -135,16 +135,18 @@ FontBakery 1.1.0 · profile `universal` · الأوزان الخمسة:
 
 | Target    | FATAL | FAIL | WARN | PASS |
 | --------- | :---: | :--: | :--: | :--: |
-| 5 weights |   0   |  15  |  30  | 355  |
+| 5 weights |   0   |  10  |  30  | 360  |
 
-- **الـ15 FAIL** = 3 فحوصات × 5 أوزان، **كلها متوارثة من IBM Plex Sans Arabic**:
-  `arabic_spacing_symbols` · `case_mapping` · `smart_dropout`.
+- **الـ10 FAIL** = فحصين × 5 أوزان، **متوارثين من IBM Plex Sans Arabic** ومحتاجين تعديل في التصميم نفسه:
+  `arabic_spacing_symbols` (رموز U+FBB2–FBC1 مرسومة بعرض صفر) · `case_mapping` (Đ من غير đ، وĵ من غير Ĵ).
 - **الـ30 WARN** = 6 فحوصات × 5 أوزان، متوارثة برضه (GDEF، ligature carets، أسماء الجليفات…).
-- اتصلّح في `build.py`: `underline_thickness` (توحيد قيم الـunderline) و`no_mac_entries`.
+- اتصلّح في `build.py`: `smart_dropout` (إضافة smart dropout control لجدول `prep`)، و`underline_thickness` (توحيد قيم الـunderline)، و`no_mac_entries`.
+- اتأكدنا إن الرسم والتشكيل ماتغيّروش: نفس hashes لكل الجليفات ونفس نتيجة HarfBuzz لـ4,814 نص × 4 إعدادات × 5 أوزان (`tools/compare_builds.py`).
 - الوصل والتشكيل اتحقق منهم بـ HarfBuzz (نفس محرك المتصفحات) — مفيش أي FAIL بيأثر على التشكيل.
 
-> All 15 remaining FAILs and 30 WARNs are inherited from upstream IBM Plex Sans Arabic
-> outlines/GDEF; fixing them would require editing the source font. Older docs claiming
+> The 10 remaining FAILs and 30 WARNs are inherited from upstream IBM Plex Sans Arabic
+> outlines/GDEF; fixing them would require design changes (new advance widths or new glyphs).
+> `smart_dropout` (5 FAILs) was fixed in `build.py` without touching outlines or shaping. Older docs claiming
 > "0 FAIL" referred to an earlier 3-weight `check-opentype` run.
 
 ---
