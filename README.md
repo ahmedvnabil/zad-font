@@ -67,9 +67,9 @@ p { font-weight: 400; }      /* Regular  */
 ```html
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <!-- pinned (recommended for production) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/zad.css">
 <!-- or always the newest commit on main -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@main/zad.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zadstack/zad-font@main/zad.css">
 ```
 
 ```css
@@ -84,14 +84,14 @@ body { font-family: var(--font-zad); }   /* أو: 'Zad', sans-serif */
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url("https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2") format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "Zad";
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: url("https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2") format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Bold.woff2") format("woff2");
 }
 ```
 
@@ -99,11 +99,11 @@ body { font-family: var(--font-zad); }   /* أو: 'Zad', sans-serif */
 
 | الوزن · Weight | `font-weight` | URL |
 |---|---|---|
-| Light | 300 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Light.woff2 |
-| Regular | 400 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2 |
-| Medium | 500 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Medium.woff2 |
-| SemiBold | 600 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-SemiBold.woff2 |
-| Bold | 700 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2 |
+| Light | 300 | https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Light.woff2 |
+| Regular | 400 | https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Regular.woff2 |
+| Medium | 500 | https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Medium.woff2 |
+| SemiBold | 600 | https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-SemiBold.woff2 |
+| Bold | 700 | https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Bold.woff2 |
 
 (`.ttf` على نفس المسار — same path with `.ttf` for desktop/design apps.)
 

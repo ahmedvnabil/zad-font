@@ -187,7 +187,7 @@
       <button @click="toggleTheme" class="btn btn-ghost !py-1.5 !px-2.5" :title="t('قلب الإضاءة','Toggle theme')">
         <span x-text="theme==='light' ? '☾' : '☀'"></span>
       </button>
-      <a href="https://github.com/ahmedvnabil/zad-font" class="btn btn-primary !py-1.5 !px-3 tag">GitHub ↗</a>
+      <a href="https://github.com/zadstack/zad-font" class="btn btn-primary !py-1.5 !px-3 tag">GitHub ↗</a>
     </div>
   </div>
 </header>
@@ -210,7 +210,7 @@
       )"></p>
 
       <div class="mt-8 flex flex-wrap items-center gap-3 no-print">
-        <a href="https://github.com/ahmedvnabil/zad-font/releases/latest" class="btn btn-primary text-base">
+        <a href="https://github.com/zadstack/zad-font/releases/latest" class="btn btn-primary text-base">
           ↓ <span x-text="t('نزّل الكِت','Download kit')"></span>
         </a>
         <a href="#tester" class="btn btn-ghost text-base" x-text="t('جرّب الخط','Try the font')"></a>
@@ -491,10 +491,10 @@ extend: { fontFamily: {
 
       <div class="flex items-center justify-between mb-2">
         <span class="tag soft" x-text="t('١ · سطر CSS واحد (مثبّت على commit)','1 · One CSS line (pinned to a commit)')"></span>
-        <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy('<link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css&quot;>', $event)" x-text="t('نسخ','Copy')"></button>
+        <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy('<link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/zad.css&quot;>', $event)" x-text="t('نسخ','Copy')"></button>
       </div>
       <pre class="code m-0 mb-4">&lt;<span class="kw">link</span> rel=<span class="str">"preconnect"</span> href=<span class="str">"https://cdn.jsdelivr.net"</span> crossorigin&gt;
-&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span> href=<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css"</span>&gt;
+&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span> href=<span class="str">"https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/zad.css"</span>&gt;
 <span class="com">&lt;!-- always newest on main: …/zad-font@main/zad.css --&gt;</span></pre>
 
       <div class="flex items-center justify-between mb-2">
@@ -503,11 +503,11 @@ extend: { fontFamily: {
       </div>
       <pre id="cdnface" class="code m-0 mb-4"><span class="kw">@font-face</span> {
   font-family: <span class="str">"Zad"</span>; font-weight: 400; font-style: normal; font-display: swap;
-  src: url(<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2"</span>) format(<span class="str">"woff2"</span>);
+  src: url(<span class="str">"https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Regular.woff2"</span>) format(<span class="str">"woff2"</span>);
 }
 <span class="kw">@font-face</span> {
   font-family: <span class="str">"Zad"</span>; font-weight: 700; font-style: normal; font-display: swap;
-  src: url(<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2"</span>) format(<span class="str">"woff2"</span>);
+  src: url(<span class="str">"https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-Bold.woff2"</span>) format(<span class="str">"woff2"</span>);
 }
 body { font-family: <span class="str">"Zad"</span>, sans-serif; }</pre>
 
@@ -614,17 +614,17 @@ body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
     </div>
 
     <div class="grid md:grid-cols-3 gap-4 mb-6 no-print">
-      <a href="https://github.com/ahmedvnabil/zad-font/releases/latest" class="paper rounded-sm p-5 hover:opacity-90 transition">
+      <a href="https://github.com/zadstack/zad-font/releases/latest" class="paper rounded-sm p-5 hover:opacity-90 transition">
         <div class="tag soft" x-text="t('الكِت كاملًا','Full kit')"></div>
         <div class="text-2xl font-semibold mt-1">↓ zip</div>
         <div class="tag soft mt-1" x-text="t('5 أوزان + CSS + رخصة','5 weights + CSS + license')"></div>
       </a>
-      <a href="https://github.com/ahmedvnabil/zad-font" class="paper rounded-sm p-5 hover:opacity-90 transition">
+      <a href="https://github.com/zadstack/zad-font" class="paper rounded-sm p-5 hover:opacity-90 transition">
         <div class="tag soft" x-text="t('استنسخ','Clone')"></div>
         <div class="text-2xl font-semibold mt-1">git clone →</div>
         <div class="tag soft mt-1" x-text="t('للبناء من المصدر','rebuild from _src')"></div>
       </a>
-      <a href="https://github.com/ahmedvnabil/zad-font/releases/tag/v1.0.0" class="paper rounded-sm p-5 hover:opacity-90 transition">
+      <a href="https://github.com/zadstack/zad-font/releases/tag/v1.0.0" class="paper rounded-sm p-5 hover:opacity-90 transition">
         <div class="tag soft">v1.0.0</div>
         <div class="text-2xl font-semibold mt-1" x-text="t('الإصدار →','Release →')"></div>
         <div class="tag soft mt-1" x-text="t('نسخة موسومة','tagged, semver')"></div>
@@ -652,7 +652,7 @@ body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
               <td class="py-3 pe-3 num ink-soft" x-text="w.c"></td>
               <td class="py-3 pe-3"><a class="link" :href="`fonts/Zad-${w.n}.woff2`" download>↓ woff2</a> <span class="num ink-soft text-sm" x-text="w.w2"></span></td>
               <td class="py-3 pe-3"><a class="link" :href="`fonts/Zad-${w.n}.ttf`" download>↓ ttf</a> <span class="num ink-soft text-sm" x-text="w.tt"></span></td>
-              <td class="py-3 pe-3 no-print"><button class="btn btn-ghost !py-1 !px-2 tag" @click="copy(`https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-${w.n}.woff2`, $event)" x-text="t('نسخ رابط','copy URL')"></button></td>
+              <td class="py-3 pe-3 no-print"><button class="btn btn-ghost !py-1 !px-2 tag" @click="copy(`https://cdn.jsdelivr.net/gh/zadstack/zad-font@3966299/fonts/Zad-${w.n}.woff2`, $event)" x-text="t('نسخ رابط','copy URL')"></button></td>
             </tr>
           </template>
         </tbody>
@@ -768,8 +768,8 @@ body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
       <div>
         <div class="tag soft mb-3" x-text="t('روابط','Links')"></div>
         <ul class="space-y-1.5">
-          <li><a class="link" href="https://github.com/ahmedvnabil/zad-font">GitHub repo</a></li>
-          <li><a class="link" href="https://github.com/ahmedvnabil/zad-font/releases">Releases</a></li>
+          <li><a class="link" href="https://github.com/zadstack/zad-font">GitHub repo</a></li>
+          <li><a class="link" href="https://github.com/zadstack/zad-font/releases">Releases</a></li>
           <li><a class="link" href="https://spaces.marsaplatform.com/s/sp2rdwbuyb/">MCP server (AI agents)</a></li>
           <li><a class="link" href="https://openfontlicense.org">openfontlicense.org</a></li>
         </ul>
