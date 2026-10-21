@@ -139,6 +139,37 @@ def purge_reserved_name(font: TTFont) -> list[int]:
     return sorted(set(dropped))
 
 
+# Not fixed on purpose: FontBakery `arabic_spacing_symbols` (upstream classes
+# U+FBB2..U+FBC1 as GDEF marks) and `case_mapping` (Đ without đ, ĵ without Ĵ).
+# Re-classing the spacing symbols as bases only turns the FAIL into
+# `base_has_width`, because upstream draws them with a zero advance; a real fix
+# needs new advance widths, and case_mapping needs new glyphs. Both are design
+# changes, which this rename/subset kit does not make. See QA-REPORT.md.
+
+
+# TrueType "smart dropout control" (SCANCTRL 511 + SCANTYPE 4) at the start of
+# 'prep'. Upstream's prep lacks it (FontBakery `smart_dropout`). It only tells
+# the rasteriser to fill pixels that would otherwise drop out at tiny sizes;
+# outlines, metrics and the existing hinting program are unchanged.
+# PUSHW[0] 511, SCANCTRL, PUSHB[0] 4, SCANTYPE  (the sequence FontBakery and gftools use)
+SMART_DROPOUT = bytes([0xB8, 0x01, 0xFF, 0x85, 0xB0, 0x04, 0x8D])
+
+
+def add_smart_dropout(font: TTFont) -> bool:
+    """Prepend smart dropout control to 'prep'. Returns True if it was added."""
+    from fontTools.ttLib.tables import ttProgram
+
+    if "prep" not in font:
+        return False
+    code = font["prep"].program.getBytecode()
+    if SMART_DROPOUT in code:
+        return False
+    prog = ttProgram.Program()
+    prog.fromBytecode(SMART_DROPOUT + code)
+    font["prep"].program = prog
+    return True
+
+
 def rename(font: TTFont, weight_name: str, weight_class: int, is_bold: bool) -> None:
     """Rewrite the name table + weight metadata to the Zad family."""
     name = font["name"]
@@ -205,7 +236,8 @@ def build_weight(weight_name: str, weight_class: int, is_bold: bool) -> dict:
 
     # recalcTimestamp=False keeps head.modified stable → reproducible output.
     font = TTFont(src, recalcTimestamp=False)
-    before_glyphs = font["maxp"].numGlyphs
+    before_glyphs = len(font.getGlyphOrder())
+    before_cps = len(font.getBestCmap())
 
     # --- subset (keep all layout features → Arabic shaping survives) ---------
     options = Options()
@@ -221,7 +253,9 @@ def build_weight(weight_name: str, weight_class: int, is_bold: bool) -> dict:
     subsetter = Subsetter(options=options)
     subsetter.populate(unicodes=unicode_set())
     subsetter.subset(font)
-    after_glyphs = font["maxp"].numGlyphs
+    # maxp.numGlyphs is only recomputed on save, so count the real glyph order
+    after_glyphs = len(font.getGlyphOrder())
+    after_cps = len(font.getBestCmap())
 
     # --- rename to Zad -------------------------------------------------------
     rename(font, weight_name, weight_class, is_bold)
@@ -235,6 +269,9 @@ def build_weight(weight_name: str, weight_class: int, is_bold: bool) -> dict:
     # --- family-wide underline metrics (FontBakery family check) -------------
     font["post"].underlineThickness = FAMILY_UNDERLINE_THICKNESS
     font["post"].underlinePosition = FAMILY_UNDERLINE_POSITION
+
+    # --- FontBakery fixes that touch metadata only (no outlines/advances) ---
+    dropout = add_smart_dropout(font)
 
     # --- write desktop .ttf + web .woff2 (both from the same subset) ---------
     OUT.mkdir(parents=True, exist_ok=True)
@@ -251,6 +288,9 @@ def build_weight(weight_name: str, weight_class: int, is_bold: bool) -> dict:
         "class": weight_class,
         "glyphs_before": before_glyphs,
         "glyphs_after": after_glyphs,
+        "cps_before": before_cps,
+        "cps_after": after_cps,
+        "dropout": dropout,
         "dropped_name_ids": dropped,
         "out": out_path,
         "ttf": ttf_path,
@@ -272,8 +312,11 @@ def main() -> None:
         print(
             f"  {r['weight']:8} w{r['class']}  "
             f"glyphs {r['glyphs_before']}→{r['glyphs_after']}  "
+            f"codepoints {r['cps_before']}→{r['cps_after']}  "
             f"{r['kb']:6.1f} KB  →  {r['out'].name}{dropped}"
         )
+    r0 = results[0]
+    print(f"\n  prep: smart dropout control {'added' if r0['dropout'] else 'already present'}")
     total = sum(r["kb"] for r in results)
     print(f"\nDone. {len(results)} weights, {total:.1f} KB total in {OUT}")
 
