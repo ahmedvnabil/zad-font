@@ -57,14 +57,64 @@ p { font-weight: 400; }      /* Regular  */
 > `zad.css` بيعرّف كمان متغيّر جاهز فيه fallback آمن:
 > `--font-zad: "Zad", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans Arabic", sans-serif;`
 
-### Option B · CDN one-liner (jsDelivr)
+### Option B · Use via CDN — الاستخدام عبر CDN (jsDelivr)
 
-عايز تشغّله بدون رفع ملفات؟ سطر واحد:
+مش عايز ترفع ملفات؟ jsDelivr بيخدم الملفات مباشرة من الريبو ده على GitHub.
+*No hosting needed: jsDelivr serves the files straight from this GitHub repo.*
+
+**1 · سطر CSS واحد / one CSS line** (`zad.css` فيه الأوزان الخمسة بمسارات نسبية، فالـCDN بيجيب الـ`woff2` من نفس الـref):
 
 ```html
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/zad.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- pinned (recommended for production) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css">
+<!-- or always the newest commit on main -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@main/zad.css">
 ```
+
+```css
+body { font-family: var(--font-zad); }   /* أو: 'Zad', sans-serif */
+```
+
+**2 · `@font-face` بنفسك / your own `@font-face`** (لو عايز وزن أو اتنين بس — only the weights you use):
+
+```css
+@font-face {
+  font-family: "Zad";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Zad";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2") format("woff2");
+}
+```
+
+**3 · روابط `woff2` مباشرة / direct `woff2` URLs**
+
+| الوزن · Weight | `font-weight` | URL |
+|---|---|---|
+| Light | 300 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Light.woff2 |
+| Regular | 400 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2 |
+| Medium | 500 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Medium.woff2 |
+| SemiBold | 600 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-SemiBold.woff2 |
+| Bold | 700 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2 |
+
+(`.ttf` على نفس المسار — same path with `.ttf` for desktop/design apps.)
+
+**أختار أنهي ref؟ / Which ref should I use?**
+
+- **`@<commit>` (زي `@3966299`) — للإنتاج / for production.** الملفات مش هتتغيّر أبداً، وjsDelivr بيكاشها للأبد. *Immutable: the files never change under you and are cached permanently.*
+- **`@main`** — دايماً آخر نسخة على `main`. ممكن تتأخر لحد 12 ساعة بعد أي تحديث (كاش jsDelivr للفروع)، وممكن تتغيّر من غير ما تاخد بالك. *Always the newest build on `main`; jsDelivr caches branches for up to 12 h, and the files can change without notice. Good for prototypes.*
+- **`@v1.0.0` / `@latest`** — `@latest` بيروح لآخر tag، وهو حالياً `v1.0.0` (البناء الأول، قبل تصحيحات الـmetadata والـsmart dropout). *`@latest` resolves to the newest git tag, currently `v1.0.0` (the first build, before the metadata/smart-dropout fixes). Prefer a commit or `@main` until a newer tag is published.*
+
+> بعد ما الـcommits دي تتعمل merge في `main`، `@main` هيخدم نفس الملفات اللي في `@3966299`.
+> *Once this branch is merged, `@main` serves the same files as `@3966299`.*
 
 ### Option C · Tailwind
 
