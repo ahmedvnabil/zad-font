@@ -8,7 +8,7 @@
   <img alt="Weights: 5" src="https://img.shields.io/badge/weights-5-black?style=flat-square">
   <img alt="Format: woff2 + ttf" src="https://img.shields.io/badge/format-woff2%20%2B%20ttf-black?style=flat-square">
   <img alt="Glyphs: 1652–1657" src="https://img.shields.io/badge/glyphs-1%2C652%E2%80%931%2C657-black?style=flat-square">
-  <a href="QA-REPORT.md"><img alt="FontBakery: 0 FATAL · 15 FAIL (inherited)" src="https://img.shields.io/badge/FontBakery-0%20FATAL%20%C2%B7%2015%20FAIL%20(inherited)-orange?style=flat-square"></a>
+  <a href="QA-REPORT.md"><img alt="FontBakery: 0 FATAL · 10 FAIL (inherited)" src="https://img.shields.io/badge/FontBakery-0%20FATAL%20%C2%B7%2010%20FAIL%20(inherited)-orange?style=flat-square"></a>
   <a href="#mcp-server--للـai-agents"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-black?style=flat-square"></a>
 </p>
 
@@ -57,14 +57,64 @@ p { font-weight: 400; }      /* Regular  */
 > `zad.css` بيعرّف كمان متغيّر جاهز فيه fallback آمن:
 > `--font-zad: "Zad", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans Arabic", sans-serif;`
 
-### Option B · CDN one-liner (jsDelivr)
+### Option B · Use via CDN — الاستخدام عبر CDN (jsDelivr)
 
-عايز تشغّله بدون رفع ملفات؟ سطر واحد:
+مش عايز ترفع ملفات؟ jsDelivr بيخدم الملفات مباشرة من الريبو ده على GitHub.
+*No hosting needed: jsDelivr serves the files straight from this GitHub repo.*
+
+**1 · سطر CSS واحد / one CSS line** (`zad.css` فيه الأوزان الخمسة بمسارات نسبية، فالـCDN بيجيب الـ`woff2` من نفس الـref):
 
 ```html
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/zad.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- pinned (recommended for production) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css">
+<!-- or always the newest commit on main -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@main/zad.css">
 ```
+
+```css
+body { font-family: var(--font-zad); }   /* أو: 'Zad', sans-serif */
+```
+
+**2 · `@font-face` بنفسك / your own `@font-face`** (لو عايز وزن أو اتنين بس — only the weights you use):
+
+```css
+@font-face {
+  font-family: "Zad";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Zad";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2") format("woff2");
+}
+```
+
+**3 · روابط `woff2` مباشرة / direct `woff2` URLs**
+
+| الوزن · Weight | `font-weight` | URL |
+|---|---|---|
+| Light | 300 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Light.woff2 |
+| Regular | 400 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2 |
+| Medium | 500 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Medium.woff2 |
+| SemiBold | 600 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-SemiBold.woff2 |
+| Bold | 700 | https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2 |
+
+(`.ttf` على نفس المسار — same path with `.ttf` for desktop/design apps.)
+
+**أختار أنهي ref؟ / Which ref should I use?**
+
+- **`@<commit>` (زي `@3966299`) — للإنتاج / for production.** الملفات مش هتتغيّر أبداً، وjsDelivr بيكاشها للأبد. *Immutable: the files never change under you and are cached permanently.*
+- **`@main`** — دايماً آخر نسخة على `main`. ممكن تتأخر لحد 12 ساعة بعد أي تحديث (كاش jsDelivr للفروع)، وممكن تتغيّر من غير ما تاخد بالك. *Always the newest build on `main`; jsDelivr caches branches for up to 12 h, and the files can change without notice. Good for prototypes.*
+- **`@v1.0.0` / `@latest`** — `@latest` بيروح لآخر tag، وهو حالياً `v1.0.0` (البناء الأول، قبل تصحيحات الـmetadata والـsmart dropout). *`@latest` resolves to the newest git tag, currently `v1.0.0` (the first build, before the metadata/smart-dropout fixes). Prefer a commit or `@main` until a newer tag is published.*
+
+> بعد ما الـcommits دي تتعمل merge في `main`، `@main` هيخدم نفس الملفات اللي في `@3966299`.
+> *Once this branch is merged, `@main` serves the same files as `@3966299`.*
 
 ### Option C · Tailwind
 
@@ -135,16 +185,18 @@ FontBakery 1.1.0 · profile `universal` · الأوزان الخمسة:
 
 | Target    | FATAL | FAIL | WARN | PASS |
 | --------- | :---: | :--: | :--: | :--: |
-| 5 weights |   0   |  15  |  30  | 355  |
+| 5 weights |   0   |  10  |  30  | 360  |
 
-- **الـ15 FAIL** = 3 فحوصات × 5 أوزان، **كلها متوارثة من IBM Plex Sans Arabic**:
-  `arabic_spacing_symbols` · `case_mapping` · `smart_dropout`.
+- **الـ10 FAIL** = فحصين × 5 أوزان، **متوارثين من IBM Plex Sans Arabic** ومحتاجين تعديل في التصميم نفسه:
+  `arabic_spacing_symbols` (رموز U+FBB2–FBC1 مرسومة بعرض صفر) · `case_mapping` (Đ من غير đ، وĵ من غير Ĵ).
 - **الـ30 WARN** = 6 فحوصات × 5 أوزان، متوارثة برضه (GDEF، ligature carets، أسماء الجليفات…).
-- اتصلّح في `build.py`: `underline_thickness` (توحيد قيم الـunderline) و`no_mac_entries`.
+- اتصلّح في `build.py`: `smart_dropout` (إضافة smart dropout control لجدول `prep`)، و`underline_thickness` (توحيد قيم الـunderline)، و`no_mac_entries`.
+- اتأكدنا إن الرسم والتشكيل ماتغيّروش: نفس hashes لكل الجليفات ونفس نتيجة HarfBuzz لـ4,814 نص × 4 إعدادات × 5 أوزان (`tools/compare_builds.py`).
 - الوصل والتشكيل اتحقق منهم بـ HarfBuzz (نفس محرك المتصفحات) — مفيش أي FAIL بيأثر على التشكيل.
 
-> All 15 remaining FAILs and 30 WARNs are inherited from upstream IBM Plex Sans Arabic
-> outlines/GDEF; fixing them would require editing the source font. Older docs claiming
+> The 10 remaining FAILs and 30 WARNs are inherited from upstream IBM Plex Sans Arabic
+> outlines/GDEF; fixing them would require design changes (new advance widths or new glyphs).
+> `smart_dropout` (5 FAILs) was fixed in `build.py` without touching outlines or shaping. Older docs claiming
 > "0 FAIL" referred to an earlier 3-weight `check-opentype` run.
 
 ---

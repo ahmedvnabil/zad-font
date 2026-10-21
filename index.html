@@ -481,12 +481,44 @@ extend: { fontFamily: {
       </article>
     </div>
 
-    <div class="mt-6 paper rounded-sm p-6 flex flex-col md:flex-row gap-5 md:items-center md:justify-between">
-      <div>
-        <div class="tag soft" x-text="t('بدون رفع ملفات؟','No hosting?')"></div>
-        <div class="text-lg mt-1" x-text="t('استورد الـCSS من jsDelivr — سطرٌ واحد.','Import the CSS from jsDelivr — one line.')"></div>
+    <div id="cdn" class="mt-6 paper rounded-sm p-6">
+      <div class="flex flex-col md:flex-row gap-2 md:items-end md:justify-between mb-4">
+        <div>
+          <div class="tag soft" x-text="t('بدون رفع ملفات؟ استخدمه عبر CDN','No hosting? Use via CDN')"></div>
+          <div class="text-lg mt-1" x-text="t('jsDelivr يخدم الملفات مباشرةً من الريبو على GitHub.','jsDelivr serves the files straight from the GitHub repo.')"></div>
+        </div>
       </div>
-      <pre class="code flex-1 md:max-w-[620px] m-0">&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span> href=<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/zad.css"</span>&gt;</pre>
+
+      <div class="flex items-center justify-between mb-2">
+        <span class="tag soft" x-text="t('١ · سطر CSS واحد (مثبّت على commit)','1 · One CSS line (pinned to a commit)')"></span>
+        <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy('<link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css&quot;>', $event)" x-text="t('نسخ','Copy')"></button>
+      </div>
+      <pre class="code m-0 mb-4">&lt;<span class="kw">link</span> rel=<span class="str">"preconnect"</span> href=<span class="str">"https://cdn.jsdelivr.net"</span> crossorigin&gt;
+&lt;<span class="kw">link</span> rel=<span class="str">"stylesheet"</span> href=<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/zad.css"</span>&gt;
+<span class="com">&lt;!-- always newest on main: …/zad-font@main/zad.css --&gt;</span></pre>
+
+      <div class="flex items-center justify-between mb-2">
+        <span class="tag soft" x-text="t('٢ · ‎@font-face بنفسك (الأوزان اللي تحتاجها بس)','2 · Your own @font-face (only the weights you use)')"></span>
+        <button class="btn btn-ghost !py-1 !px-2 tag no-print" @click="copy(document.getElementById('cdnface').innerText, $event)" x-text="t('نسخ','Copy')"></button>
+      </div>
+      <pre id="cdnface" class="code m-0 mb-4"><span class="kw">@font-face</span> {
+  font-family: <span class="str">"Zad"</span>; font-weight: 400; font-style: normal; font-display: swap;
+  src: url(<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Regular.woff2"</span>) format(<span class="str">"woff2"</span>);
+}
+<span class="kw">@font-face</span> {
+  font-family: <span class="str">"Zad"</span>; font-weight: 700; font-style: normal; font-display: swap;
+  src: url(<span class="str">"https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-Bold.woff2"</span>) format(<span class="str">"woff2"</span>);
+}
+body { font-family: <span class="str">"Zad"</span>, sans-serif; }</pre>
+
+      <div class="tag soft mb-2" x-text="t('٣ · روابط woff2 مباشرة: انظر عمود CDN في جدول التنزيلات (§ 08).','3 · Direct woff2 URLs: see the CDN column in the downloads table (§ 08).')"></div>
+
+      <div class="tag soft mt-4 mb-1" x-text="t('أيّ ref أستخدم؟','Which ref?')"></div>
+      <ul class="text-sm leading-7 m-0 ps-5" style="list-style:disc">
+        <li x-text="t('‎@commit (مثل ‎@3966299): للإنتاج. الملفات لا تتغيّر أبدًا ومكاشة للأبد.','@commit (e.g. @3966299): for production. Files never change and are cached permanently.')"></li>
+        <li x-text="t('‎@main: دائمًا أحدث نسخة على main، لكن قد تتأخر حتى 12 ساعة (كاش jsDelivr للفروع) وقد تتغيّر دون إشعار.','@main: always the newest build on main, but jsDelivr caches branches for up to 12 h and files can change without notice.')"></li>
+        <li x-text="t('‎@latest يشير لآخر tag، وهو حاليًا v1.0.0 (البناء الأول قبل تصحيحات الـmetadata). فضّل commit أو ‎@main.','@latest points to the newest tag, currently v1.0.0 (the first build, before the metadata fixes). Prefer a commit or @main.')"></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -612,7 +644,7 @@ body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
         </thead>
         <tbody>
           <template x-for="w in [
-            {n:'Light',c:300,w2:'69.9 KB',tt:'217 KB'},{n:'Regular',c:400,w2:'66.5 KB',tt:'215 KB'},
+            {n:'Light',c:300,w2:'70.1 KB',tt:'217 KB'},{n:'Regular',c:400,w2:'66.6 KB',tt:'215 KB'},
             {n:'Medium',c:500,w2:'70.2 KB',tt:'220 KB'},{n:'SemiBold',c:600,w2:'70.8 KB',tt:'222 KB'},
             {n:'Bold',c:700,w2:'68.2 KB',tt:'224 KB'}]" :key="w.c">
             <tr class="ladder">
@@ -620,7 +652,7 @@ body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
               <td class="py-3 pe-3 num ink-soft" x-text="w.c"></td>
               <td class="py-3 pe-3"><a class="link" :href="`fonts/Zad-${w.n}.woff2`" download>↓ woff2</a> <span class="num ink-soft text-sm" x-text="w.w2"></span></td>
               <td class="py-3 pe-3"><a class="link" :href="`fonts/Zad-${w.n}.ttf`" download>↓ ttf</a> <span class="num ink-soft text-sm" x-text="w.tt"></span></td>
-              <td class="py-3 pe-3 no-print"><button class="btn btn-ghost !py-1 !px-2 tag" @click="copy(`https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@latest/fonts/Zad-${w.n}.woff2`, $event)" x-text="t('نسخ رابط','copy URL')"></button></td>
+              <td class="py-3 pe-3 no-print"><button class="btn btn-ghost !py-1 !px-2 tag" @click="copy(`https://cdn.jsdelivr.net/gh/ahmedvnabil/zad-font@3966299/fonts/Zad-${w.n}.woff2`, $event)" x-text="t('نسخ رابط','copy URL')"></button></td>
             </tr>
           </template>
         </tbody>
@@ -677,7 +709,7 @@ body { font-family: <span class="kw">var</span>(--font-zad); }</pre>
           {k_ar:'العائلة',k_en:'Family',v:'Zad'},{k_ar:'المصدر',k_en:'Source',v:'IBM Plex Sans Arabic'},
           {k_ar:'الفئة',k_en:'Class',v:'Sans · AR + LAT'},{k_ar:'الأوزان',k_en:'Weights',v:'300 · 400 · 500 · 600 · 700',num:true},
           {k_ar:'المحارف',k_en:'Glyphs',v:'1,652–1,657',num:true},{k_ar:'التشكيل',k_en:'Shaping',v:'HarfBuzz ✓'},
-          {k_ar:'فحص الجودة',k_en:'QA',v:'0 FATAL · 15 FAIL (upstream)'},{k_ar:'إعادة الإنتاج',k_en:'Reproducible',v:'python build.py'},
+          {k_ar:'فحص الجودة',k_en:'QA',v:'0 FATAL · 10 FAIL (upstream)'},{k_ar:'إعادة الإنتاج',k_en:'Reproducible',v:'python build.py'},
           {k_ar:'المؤلّف',k_en:'Maintainer',v:'Ahmed Morsy'}]" :key="r.k_en">
           <div class="hair border-b flex items-baseline justify-between gap-4 py-2.5">
             <span class="tag ink-soft" x-text="t(r.k_ar,r.k_en)"></span>
