@@ -2,7 +2,7 @@
   "schema_version": 1,
   "profile": "universal",
   "fontbakery_version": "1.1.0",
-  "ran_at": "2026-06-14T02:15:03.970426+00:00",
+  "ran_at": "2026-10-21T10:00:53.626533+00:00",
   "family_files": [
     "fonts/Zad-Bold.ttf",
     "fonts/Zad-Light.ttf",
@@ -13,73 +13,115 @@
   "counts": {
     "fatal": 0,
     "error": 0,
-    "fail": 21,
+    "fail": 15,
     "warn": 30,
     "info": 15,
-    "skip": 182,
-    "pass": 339
+    "skip": 172,
+    "pass": 355
   },
-  "worst": "error",
+  "worst": "fail",
   "top_findings": [
     {
-      "check_id": "opentype/family/underline_thickness",
+      "check_id": "arabic_spacing_symbols",
       "severity": "fail",
-      "message": "Thickness of the underline is not the same across this family. In order to fix this, please make sure that the underlineThickness value is the same in the 'post' table of all of this family font files.\nDetected underlineThickness values are:\n\t/Users/avmini/Documents/uae/ajman font/families/zad/fonts/Zad-Bold.ttf: 100\n\t/Users/avmini/Documents/uae/ajman font/families/zad/fonts/Zad-Light.ttf: 43\n\t/Users/avmini/Documents/uae/ajman font/families/zad/fonts/Zad-Medium.ttf: 77\n\t/Users/avmini/Documents/uae/ajman font/families/zad/fonts/Zad-Regular.ttf: 60\n\t/Users/avmini/Documents/uae/ajman font/familie",
+      "message": "{'code': 'mark-in-gdef', 'message': '\"uniFBB2\" is defined in GDEF as a mark (class 3).'}",
       "file": null
     },
     {
       "check_id": "arabic_spacing_symbols",
       "severity": "fail",
-      "message": "\"uniFBB2\" is defined in GDEF as a mark (class 3).",
-      "file": "Zad-Bold.ttf"
+      "message": "{'code': 'mark-in-gdef', 'message': '\"uniFBB2\" is defined in GDEF as a mark (class 3).'}",
+      "file": null
     },
     {
       "check_id": "arabic_spacing_symbols",
       "severity": "fail",
-      "message": "\"uniFBB2\" is defined in GDEF as a mark (class 3).",
-      "file": "Zad-Light.ttf"
+      "message": "{'code': 'mark-in-gdef', 'message': '\"uniFBB2\" is defined in GDEF as a mark (class 3).'}",
+      "file": null
     },
     {
       "check_id": "arabic_spacing_symbols",
       "severity": "fail",
-      "message": "\"uniFBB2\" is defined in GDEF as a mark (class 3).",
-      "file": "Zad-Medium.ttf"
+      "message": "{'code': 'mark-in-gdef', 'message': '\"uniFBB2\" is defined in GDEF as a mark (class 3).'}",
+      "file": null
     },
     {
       "check_id": "arabic_spacing_symbols",
       "severity": "fail",
-      "message": "\"uniFBB2\" is defined in GDEF as a mark (class 3).",
-      "file": "Zad-Regular.ttf"
-    },
-    {
-      "check_id": "arabic_spacing_symbols",
-      "severity": "fail",
-      "message": "\"uniFBB2\" is defined in GDEF as a mark (class 3).",
-      "file": "Zad-SemiBold.ttf"
+      "message": "{'code': 'mark-in-gdef', 'message': '\"uniFBB2\" is defined in GDEF as a mark (class 3).'}",
+      "file": null
     },
     {
       "check_id": "case_mapping",
       "severity": "fail",
-      "message": "The following glyphs lack their case-swapping counterparts:\n\n| Glyph present in the font | Missing case-swapping counterpart |\n| :--- | :--- |\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |",
-      "file": "Zad-Bold.ttf"
+      "message": "{'code': 'missing-case-counterparts', 'message': 'The following glyphs lack their case-swapping counterparts:\\n\\n| Glyph present in the font | Missing case-swapping counterpart |\\n| :--- | :--- |\\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |\\n\\n'}",
+      "file": null
     },
     {
       "check_id": "case_mapping",
       "severity": "fail",
-      "message": "The following glyphs lack their case-swapping counterparts:\n\n| Glyph present in the font | Missing case-swapping counterpart |\n| :--- | :--- |\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |",
-      "file": "Zad-Light.ttf"
+      "message": "{'code': 'missing-case-counterparts', 'message': 'The following glyphs lack their case-swapping counterparts:\\n\\n| Glyph present in the font | Missing case-swapping counterpart |\\n| :--- | :--- |\\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |\\n\\n'}",
+      "file": null
     },
     {
       "check_id": "case_mapping",
       "severity": "fail",
-      "message": "The following glyphs lack their case-swapping counterparts:\n\n| Glyph present in the font | Missing case-swapping counterpart |\n| :--- | :--- |\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |",
-      "file": "Zad-Medium.ttf"
+      "message": "{'code': 'missing-case-counterparts', 'message': 'The following glyphs lack their case-swapping counterparts:\\n\\n| Glyph present in the font | Missing case-swapping counterpart |\\n| :--- | :--- |\\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |\\n\\n'}",
+      "file": null
     },
     {
       "check_id": "case_mapping",
       "severity": "fail",
-      "message": "The following glyphs lack their case-swapping counterparts:\n\n| Glyph present in the font | Missing case-swapping counterpart |\n| :--- | :--- |\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |",
-      "file": "Zad-Regular.ttf"
+      "message": "{'code': 'missing-case-counterparts', 'message': 'The following glyphs lack their case-swapping counterparts:\\n\\n| Glyph present in the font | Missing case-swapping counterpart |\\n| :--- | :--- |\\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |\\n\\n'}",
+      "file": null
+    },
+    {
+      "check_id": "case_mapping",
+      "severity": "fail",
+      "message": "{'code': 'missing-case-counterparts', 'message': 'The following glyphs lack their case-swapping counterparts:\\n\\n| Glyph present in the font | Missing case-swapping counterpart |\\n| :--- | :--- |\\n| U+0110: LATIN CAPITAL LETTER D WITH STROKE | U+0111: LATIN SMALL LETTER D WITH STROKE |\\n| U+0135: LATIN SMALL LETTER J WITH CIRCUMFLEX | U+0134: LATIN CAPITAL LETTER J WITH CIRCUMFLEX |\\n\\n'}",
+      "file": null
+    },
+    {
+      "check_id": "smart_dropout",
+      "severity": "fail",
+      "message": "{'code': 'lacks-smart-dropout', 'message': \"The 'prep' table does not contain TrueType instructions enabling smart dropout control. To fix, export the font with autohinting enabled, or run ttfautohint on the font, or run the `gftools fix-nonhinting` script.\"}",
+      "file": null
+    },
+    {
+      "check_id": "smart_dropout",
+      "severity": "fail",
+      "message": "{'code': 'lacks-smart-dropout', 'message': \"The 'prep' table does not contain TrueType instructions enabling smart dropout control. To fix, export the font with autohinting enabled, or run ttfautohint on the font, or run the `gftools fix-nonhinting` script.\"}",
+      "file": null
     }
-  ]
+  ],
+  "fail_breakdown": {
+    "arabic_spacing_symbols": 5,
+    "case_mapping": 5,
+    "smart_dropout": 5
+  },
+  "warn_breakdown": {
+    "opentype/gdef_non_mark_chars": 5,
+    "arabic_high_hamza": 5,
+    "contour_count": 5,
+    "ligature_carets": 5,
+    "soft_hyphen": 5,
+    "valid_glyphnames": 5
+  },
+  "notes": {
+    "inherited_from_ibm_plex": [
+      "arabic_spacing_symbols",
+      "case_mapping",
+      "smart_dropout",
+      "opentype/gdef_non_mark_chars",
+      "arabic_high_hamza",
+      "contour_count",
+      "ligature_carets",
+      "soft_hyphen",
+      "valid_glyphnames"
+    ],
+    "fixed_in_this_build": [
+      "opentype/family/underline_thickness (normalised to Regular 60/-95)",
+      "no_mac_entries (stopped writing Macintosh name records)"
+    ]
+  }
 }

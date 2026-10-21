@@ -5,7 +5,9 @@ Zad font kit builder.
 Takes the original IBM Plex Sans Arabic weights (SIL OFL 1.1) from ./_src,
 subsets them to Arabic + Latin + digits + punctuation while preserving ALL
 OpenType layout features (so Arabic joining/shaping stays intact), renames the
-font internally to "Zad", and writes compressed .woff2 files to ./fonts.
+font internally to "Zad", normalises family underline metrics, drops
+Macintosh name records (matching upstream), and writes compressed .woff2
+files to ./fonts.
 
 OFL compliance:
   - The new name "Zad" does NOT contain the Reserved Font Name "Plex".
@@ -89,10 +91,27 @@ MARKETING_IDS = {7, 10, 19}  # trademark, description, sample text
 
 
 def set_name(font: TTFont, name_id: int, value: str) -> None:
-    """Set a name record for both Windows (3,1,0x409) and Mac (1,0,0)."""
+    """Set a Windows (3,1,0x409) name record only.
+
+    Upstream IBM Plex ships without Macintosh (platform 1) name entries.
+    Writing Mac duplicates here would re-introduce FontBakery's
+    ``no_mac_entries`` FAIL on an otherwise clean derivative.
+    """
+    font["name"].setName(value, name_id, 3, 1, 0x409)
+
+
+def drop_mac_names(font: TTFont) -> int:
+    """Remove any Macintosh (platformID=1) name records. Returns count dropped."""
     name = font["name"]
-    name.setName(value, name_id, 3, 1, 0x409)
-    name.setName(value, name_id, 1, 0, 0)
+    before = len(name.names)
+    name.names = [r for r in name.names if r.platformID != 1]
+    return before - len(name.names)
+
+
+# Family-wide underline metrics (Normalised to Regular / IBM Plex Regular values).
+# FontBakery opentype/family/underline_thickness requires identical values.
+FAMILY_UNDERLINE_THICKNESS = 60
+FAMILY_UNDERLINE_POSITION = -95
 
 
 def purge_reserved_name(font: TTFont) -> list[int]:
@@ -209,6 +228,13 @@ def build_weight(weight_name: str, weight_class: int, is_bold: bool) -> dict:
 
     # --- strip any name record that still carries the reserved name ----------
     dropped = purge_reserved_name(font)
+
+    # --- drop Mac name records (upstream has none; keep it that way) ---------
+    drop_mac_names(font)
+
+    # --- family-wide underline metrics (FontBakery family check) -------------
+    font["post"].underlineThickness = FAMILY_UNDERLINE_THICKNESS
+    font["post"].underlinePosition = FAMILY_UNDERLINE_POSITION
 
     # --- write desktop .ttf + web .woff2 (both from the same subset) ---------
     OUT.mkdir(parents=True, exist_ok=True)
