@@ -27,6 +27,17 @@
 
 ---
 
+
+## Application preview
+
+![Actual application interface](docs/media/readme-preview.png)
+
+![Tour of actual application screens](docs/media/readme-tour.gif)
+
+Captured locally on 24 October 2026 from the shipped font tester: replacing the example with a new Arabic sentence. The type is rendered by the actual font files.
+
+[Media provenance](docs/media/README.md)
+
 ## Quick start — البداية السريعة
 
 ```html
